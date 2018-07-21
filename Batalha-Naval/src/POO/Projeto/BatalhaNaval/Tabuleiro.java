@@ -7,6 +7,10 @@ public class Tabuleiro {
     {
         campo = new Celula[linhas][colunas];
     }
+    public Tabuleiro(int linhas)
+    {
+        campo = new Celula[linhas];
+    }
     
     public void inicializarTabuleiro()
     {
