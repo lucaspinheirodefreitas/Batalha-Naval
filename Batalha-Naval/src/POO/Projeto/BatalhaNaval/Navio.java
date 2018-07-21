@@ -10,11 +10,6 @@ public class Navio {
         this.orientacao = orientacao;
     }
     
-    /**
-     *
-     * @param posicao
-     * @return
-     */
     public String[] verificaPosicoes(String posicao){
         String[] posicoes = new String[this.tamanho];
         posicoes[0] = posicao;

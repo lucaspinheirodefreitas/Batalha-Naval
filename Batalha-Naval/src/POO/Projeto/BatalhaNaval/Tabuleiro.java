@@ -30,7 +30,8 @@ public class Tabuleiro {
             for(int j=0; j<campo[0].length; j++)
             {
                 System.out.print
-                (campo[i][j].getCaracter() + (j == campo[0].length-1 ? "\n" : ""));
+                (campo[i][j].getCaracter() + 
+                        (j == campo[0].length-1 ? "\n" : ""));
             }
         }
     }

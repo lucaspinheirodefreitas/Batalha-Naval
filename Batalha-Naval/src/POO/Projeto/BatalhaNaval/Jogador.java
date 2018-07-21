@@ -11,11 +11,9 @@ public class Jogador {
     
     public Jogador()
     {
-        int gamer = verificaGamer();
-        String nome = lerNome(gamer);
-        arq = gerArquivo(gamer);
-        this.nome = nome;
-        this.player = gamer;
+        this.player = verificaGamer();
+        this.nome = lerNome(player);
+        arq = gerArquivo(player);
     }
 
     public void setNome(String nome) {
@@ -74,8 +72,7 @@ public class Jogador {
         return nomeJogador;
     }
     
-    public String geraPath(int gamer)
-    {
+    public String geraPath(int gamer) {
         String path;
         
         path = ("[" + gamer + "].txt");
@@ -83,8 +80,7 @@ public class Jogador {
         return path;
     }
     
-    public Arquivo gerArquivo(int gamer)
-    {
+    public Arquivo gerArquivo(int gamer){
         String path;
         Arquivo arquiv;
         
@@ -93,4 +89,47 @@ public class Jogador {
         
         return arquiv;
     }
+    
+    public void disporNavios() {
+        boolean controle = true;
+        char orientacao = ' ';
+        String posicao;
+        String[] posicoesPortaAvioes = new String[5];
+        String[] posicoesCruzador = new String[3];
+        
+        
+        System.out.println("Digite a horientação cujo deseja inserir "
+                + "o 'Porta-Aviões [V - vertical] ou [H - horizontal");
+        while(orientacao != 'h' && orientacao != 'H' 
+                && orientacao != 'v' && orientacao != 'E') {
+            orientacao = scan.next().charAt(0);
+        }
+        
+        /*Observação: o controle para verificar se a posição é válida ou não 
+        deve ser realizado apenas pelo usuário, essa condiçãp não é válidada 
+        neste programa*/
+        
+        System.out.println("Digite a posição cujo deseja inserir "
+                + "o 'Porta-Aviões' : de '[A-J] + [0-9]'");
+        posicao = scan.next();
+        
+        PortaAvioes portAvioes = new PortaAvioes(orientacao);
+        
+        posicoesPortaAvioes = portAvioes.posicoes(posicao);
+        
+        for(int i=0; i<posicoesPortaAvioes.length; i++)
+        {
+            arq.gravarPosicao(posicoesPortaAvioes[i]);
+        }
+        
+    }
+    
+    public void disporNaviosRandom() {
+        
+    }
+    
+    public void jogadas() {
+        
+    }
+   
 }
