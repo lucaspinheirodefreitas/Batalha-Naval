@@ -6,12 +6,7 @@ public class Tabuleiro {
     public Tabuleiro(int linhas, int colunas)
     {
         campo = new Celula[linhas][colunas];
-    }
-    public Tabuleiro()
-    {
-        
-    }
-    
+    }    
     public void inicializarTabuleiro()
     {
         for (int i=0; i<campo.length; i++)
