@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package POO.Projeto.BatalhaNaval;
 
-/**
- *
- * @author mohammed
- */
 public class Tabuleiro {
     Celula [][] campo;
     
@@ -26,7 +17,7 @@ public class Tabuleiro {
                 if (i == 0 || i == campo.length-1)
                     campo[i][j] = new Celula('=');
                 else if(j == 0 || j == campo[0].length-1)
-                	campo[i][j] = new Celula('|');
+                    campo[i][j] = new Celula('|');
                 else
                     campo[i][j] = new Celula('*');
             }
@@ -39,7 +30,8 @@ public class Tabuleiro {
         {
             for(int j=0; j<campo[0].length; j++)
             {
-                System.out.print(campo[i][j].getCaracter() + (j == campo[0].length-1 ? "\n" : ""));
+                System.out.print
+                (campo[i][j].getCaracter() + (j == campo[0].length-1 ? "\n" : ""));
             }
         }
     }
@@ -48,12 +40,5 @@ public class Tabuleiro {
     {
         campo[linha][coluna].setCaracter(caracter);
     }
-    
-    //Não sei implementar esse método
-    
-    /*public Celula[][] getTabuleiro()
-    {
-        return 
-    }*/
-    
+
 }
