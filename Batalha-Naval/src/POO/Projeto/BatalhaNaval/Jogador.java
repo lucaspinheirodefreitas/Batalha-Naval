@@ -46,6 +46,7 @@ public class Jogador {
                 "2 p/ 'Player 2' " +
                 "ou 3 p/ 'Computador'");
         gamer = scan.nextInt();
+        
         while(gamer != 1 && gamer != 2 && gamer != 3)
         {
             System.out.println("Número inválido!");
@@ -60,6 +61,7 @@ public class Jogador {
         
         if(gamer == 1 || gamer == 2)
         {
+            System.out.print("Digite o nome do Jogador: ");
             nomeJogador = scan.next();
         }
         else
@@ -100,10 +102,12 @@ public class Jogador {
         
         /*-------------------------Porta-Aviões-------------------------------*/
         
-        System.out.println("Digite a horientação cujo deseja inserir "
+        System.out.println("Digite a orientação cujo deseja inserir "
                 + "o 'Porta-Aviões' [V - vertical] ou [H - horizontal");
         while(orientacao != 'h' && orientacao != 'H' 
                 && orientacao != 'v' && orientacao != 'E') {
+            System.out.println("Orientação inválida!");
+            System.out.println("Digite h p/ 'horizontal' ou v p/ 'vertical'");
             orientacao = scan.next().charAt(0);
         }
         
@@ -116,7 +120,7 @@ public class Jogador {
         posicao = scan.next();
         
         PortaAvioes portAvioes = new PortaAvioes(orientacao);
-        
+        posicoesPortaAvioes[0] = posicao;
         posicoesPortaAvioes = portAvioes.posicoes(posicao);
         
         for(int i=0; i<posicoesPortaAvioes.length; i++){
@@ -127,10 +131,11 @@ public class Jogador {
         
         orientacao = ' ';
         
-        System.out.println("Digite a horientação cujo deseja inserir "
+        System.out.println("Digite a orientação cujo deseja inserir "
                 + "o 'Cruzador' [V - vertical] ou [H - horizontal");
         while(orientacao != 'h' && orientacao != 'H' 
-                && orientacao != 'v' && orientacao != 'E') {
+                && orientacao != 'v' && orientacao != 'V') {
+            
             orientacao = scan.next().charAt(0);
         }
         
@@ -143,11 +148,11 @@ public class Jogador {
         posicao = scan.next();
         
         Cruzador navioCruzador = new Cruzador(orientacao);
-        
+        posicoesCruzador[0] = posicao;
         posicoesCruzador = navioCruzador.posicoes(posicao);
         
-        for(int i=0; i<posicoesPortaAvioes.length; i++){
-            arq.escrever(arq.getPath(), posicoesPortaAvioes[i]);
+        for(int i=0; i<posicoesCruzador.length; i++){
+            arq.escrever(arq.getPath(), posicoesCruzador[i]);
         }
         
     }

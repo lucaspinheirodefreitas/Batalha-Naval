@@ -4,10 +4,11 @@ package POO.Projeto.BatalhaNaval;
 public class BatalhaNaval {
 
     public static void main(String[] args) {
-               
+        
+        //instanciar tabuleiro
         Jogador player = new Jogador();
         disporNavios(player);
-        player.jogadas();
+        //player.jogadas();
         
         
     }

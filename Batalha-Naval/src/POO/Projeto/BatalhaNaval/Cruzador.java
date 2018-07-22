@@ -16,7 +16,7 @@ public class Cruzador extends Navio {
         if(super.getOrientacao() == 'h' || super.getOrientacao() == 'H')
         {
             
-            for(int i=0; i<super.getTamanho(); i++)
+            for(int i=1; i<super.getTamanho(); i++)
             {
                 segunda = (char)(segunda + 1);
                 posicao[i] = String.valueOf(primeira) + String.valueOf(segunda); 
@@ -24,7 +24,7 @@ public class Cruzador extends Navio {
         }
         else
         {
-            for(int i=0; i<super.getTamanho(); i++)
+            for(int i=1; i<super.getTamanho(); i++)
             {
                 primeira = (char)(primeira + 1);
                 posicao[i] = String.valueOf(primeira) + String.valueOf(segunda);
