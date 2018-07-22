@@ -3,7 +3,7 @@ package POO.Projeto.BatalhaNaval;
 public class Cruzador extends Navio {
     
     public Cruzador(char orientacao) {
-        super(4, orientacao);
+        super(3, orientacao);
     }
     
     public String[] posicoes(String posicaoInicial) {
