@@ -3,12 +3,13 @@ package POO.Projeto.BatalhaNaval;
 public class BatalhaNaval {
 
     public static void main(String[] args) {
-        int verifica;
-        //instanciar tabuleiro
+        
+        Tabuleiro campoBatalha = new Tabuleiro(13, 13);
+        campoBatalha.inicializarTabuleiro();
+        campoBatalha.imprimirTabuleiro();
         Jogador player = new Jogador();
         disporNavios(player);
-        //player.jogadas();
-        
+        player.jogadas();
         
     }
     
