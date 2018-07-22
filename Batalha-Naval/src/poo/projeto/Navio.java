@@ -1,4 +1,4 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 
 public class Navio {
     private int tamanho;

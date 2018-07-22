@@ -1,11 +1,12 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 
-public class Destruidor extends Navio {
-    
-    public Destruidor(char orientacao) {
-        super(2, orientacao);
+
+public class NavioTanque extends Navio{
+
+    public NavioTanque(char orientacao) {
+        super(4, orientacao);
     }
-    
+
     public String[] posicoes(String posicaoInicial)
     {
         String[] posicao = new String[super.getTamanho()];
@@ -34,5 +35,7 @@ public class Destruidor extends Navio {
         }
         return posicao;
     }
+    
+    
     
 }

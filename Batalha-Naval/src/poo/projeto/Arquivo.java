@@ -1,4 +1,4 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

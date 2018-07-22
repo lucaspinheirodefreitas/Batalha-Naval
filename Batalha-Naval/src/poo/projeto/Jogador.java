@@ -1,4 +1,4 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 import java.util.Scanner;
 
 public class Jogador {

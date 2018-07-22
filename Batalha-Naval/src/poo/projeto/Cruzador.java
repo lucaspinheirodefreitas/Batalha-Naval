@@ -1,13 +1,12 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 
-public class Submarino extends Navio{
+public class Cruzador extends Navio {
     
-    public Submarino(char orientacao) {
+    public Cruzador(char orientacao) {
         super(3, orientacao);
     }
     
-    public String[] posicoes(String posicaoInicial)
-    {
+    public String[] posicoes(String posicaoInicial) {
         String[] posicao = new String[super.getTamanho()];
         char primeira, segunda;
         
@@ -15,25 +14,20 @@ public class Submarino extends Navio{
         segunda = posicaoInicial.charAt(1);
         posicao[0] = posicaoInicial;
         
-        if(super.getOrientacao() == 'h' || super.getOrientacao() == 'H')
-        {
-            
-            for(int i=1; i<super.getTamanho(); i++)
-            {
+        if(super.getOrientacao() == 'h' || super.getOrientacao() == 'H') {
+           
+            for(int i=1; i<super.getTamanho(); i++) {
                 segunda = (char)(segunda + 1);
                 posicao[i] = String.valueOf(primeira) + String.valueOf(segunda); 
             }
         }
-        else
-        {
-            for(int i=1; i<super.getTamanho(); i++)
-            {
+        else {
+            for(int i=1; i<super.getTamanho(); i++) {
                 primeira = (char)(primeira + 1);
                 posicao[i] = String.valueOf(primeira) + String.valueOf(segunda);
             }
         }
         return posicao;
     }
-    
     
 }

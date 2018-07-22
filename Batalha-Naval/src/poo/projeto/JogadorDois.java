@@ -1,4 +1,4 @@
-package POO.Projeto.BatalhaNaval;
+package poo.projeto;
 
 public class JogadorDois extends Jogador {
     
