@@ -1,5 +1,4 @@
 package poo.projeto;
-import java.io.File;
 import java.util.Scanner;
 
 public class Jogador {
@@ -292,10 +291,6 @@ public class Jogador {
         }
         
         System.out.println();
-    }
-    
-    public void disporNaviosRandom() {
-        
     }
     
     public void buscarPos(Tabuleiro tab, String jogada, boolean achou) {

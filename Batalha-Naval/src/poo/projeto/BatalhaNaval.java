@@ -16,7 +16,7 @@ public class BatalhaNaval {
     public static void disporNavios(Jogador jogador) {
         
         if(jogador.getPlayer() == 3) {
-            jogador.disporNaviosRandom();
+            jogador = (JogadorComputador)jogador;
         }
         else {
             jogador.disporNavios();

@@ -10,13 +10,28 @@ public class Navio {
         this.orientacao = orientacao;
     }
     
-    public String[] verificaPosicoes(String posicao){
-        String[] posicoes = new String[this.tamanho];
-        posicoes[0] = posicao;
-        /*se posição horizontal o for deve ser implementado incrementando as colunas
-          se posiçao for vertical o for deve ser implementado incrementando as linhas
-          deve-se retornar um vetor com todas as posições a serem inseridas no arquivo ou deve-se a cada execução do for chamar o metodo que insere navios*/
-        return posicoes;
+    public String[] posicoes(String posicaoInicial) {
+        String[] posicao = new String[getTamanho()];
+        char primeira, segunda;
+
+        primeira = posicaoInicial.charAt(0);
+        segunda = posicaoInicial.charAt(1);
+        posicao[0] = posicaoInicial;
+
+        if(getOrientacao() == 'h' || getOrientacao() == 'H') {
+
+            for(int i=1; i<getTamanho(); i++) {
+                segunda = (char)(segunda + 1);
+                posicao[i] = String.valueOf(primeira) + String.valueOf(segunda); 
+            }
+        }
+        else {
+            for(int i=1; i<getTamanho(); i++) {
+                primeira = (char)(primeira + 1);
+                posicao[i] = String.valueOf(primeira) + String.valueOf(segunda);
+            }
+        }
+        return posicao;
     }
 
     public int getTamanho() {

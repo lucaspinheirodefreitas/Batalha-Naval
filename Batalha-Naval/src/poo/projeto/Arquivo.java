@@ -80,8 +80,6 @@ public class Arquivo {
         return false;
     }
     
-    //--------------------------Ideias de alguns possíveis métodos---------------------------//
-    
     public boolean verificarFim(String path)
     {
         boolean achou = buscar(path, "fim");
@@ -101,10 +99,5 @@ public class Arquivo {
         }
         /*posso pensar em usr isso
         boolean isFile() -> retorna true se o argumento passado ao construtor da File é um arquivo, falso o contrário*/
-    }
-    
-    public void inserirVencedor()
-    {
-        
     }
 } 
