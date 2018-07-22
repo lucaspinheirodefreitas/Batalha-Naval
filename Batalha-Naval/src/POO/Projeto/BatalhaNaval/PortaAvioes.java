@@ -13,7 +13,8 @@ public class PortaAvioes extends Navio{
         
         primeira = posicaoInicial.charAt(0);
         segunda = posicaoInicial.charAt(1);
-    
+        posicao[0] = posicaoInicial;
+        
         if(super.getOrientacao() == 'h' || super.getOrientacao() == 'H')
         {
             

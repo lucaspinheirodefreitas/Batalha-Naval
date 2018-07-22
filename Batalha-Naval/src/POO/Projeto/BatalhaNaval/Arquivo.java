@@ -1,6 +1,7 @@
 package POO.Projeto.BatalhaNaval;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 
 public class Arquivo {
@@ -24,16 +25,14 @@ public class Arquivo {
 
     public void escrever(String path, String texto)
     {
-        try 
-        {
+        try {
             FileWriter fw = new FileWriter(path, true);
             BufferedWriter conexao = new BufferedWriter(fw);
             conexao.write(texto);
             conexao.newLine();
             conexao.close();  
-} 
-        catch(Exception e) 
-        {
+        } 
+        catch(Exception e) {
             System.out.println("deu merda");
         }
     }
@@ -50,9 +49,14 @@ public class Arquivo {
         
     }
     
-    public void apagarTudo()
+    public void deletarArquivo()
     {
+        File file = new File(path);
         
+        if(file.exists()){
+            file.delete();
+        }
+            
     }
     
     public void inserirVencedor()

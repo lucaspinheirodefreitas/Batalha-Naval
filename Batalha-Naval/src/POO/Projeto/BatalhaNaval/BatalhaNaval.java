@@ -1,10 +1,9 @@
 package POO.Projeto.BatalhaNaval;
 
-
 public class BatalhaNaval {
 
     public static void main(String[] args) {
-        
+        int verifica;
         //instanciar tabuleiro
         Jogador player = new Jogador();
         disporNavios(player);
