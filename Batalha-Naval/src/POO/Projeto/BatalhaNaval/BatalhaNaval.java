@@ -9,7 +9,7 @@ public class BatalhaNaval {
         campoBatalha.imprimirTabuleiro();
         Jogador player = new Jogador();
         disporNavios(player);
-        player.jogadas();
+        player.jogadas(campoBatalha);
         
     }
     

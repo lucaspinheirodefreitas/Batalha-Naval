@@ -7,12 +7,18 @@ public class Jogador {
     
     private String nome;
     private int player;
+    private int playerAdvs;
     private Arquivo arq;
     
     public Jogador() {
         this.player = verificaGamer();
+        this.playerAdvs = verificaGamerTipo();
         this.nome = lerNome(player);
-        arq = gerArquivo(player);
+        arq = gerArquivo(player, playerAdvs);
+    }
+
+    public int getPlayerAdvs() {
+        return playerAdvs;
     }
 
     public void setNome(String nome) {
@@ -40,8 +46,26 @@ public class Jogador {
         return arq;
     }
     
+    public int verificaGamerTipo() {
+        int gamerTipo;
+        
+        
+        System.out.print("Digite 1 p/ o 'Computador'" +
+                "ou 2 p/ outro 'Adversario': ");
+        gamerTipo = scan.nextInt();
+      
+        while(gamerTipo != 1 && gamerTipo != 2)
+        {
+            System.out.println("Número inválido!");
+            System.out.println("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
+            gamerTipo = scan.nextInt();
+        }
+        return gamerTipo;
+    }
+    
     public int verificaGamer() {
         int gamer;
+        
         System.out.print("Digite 1 p/ 'Player 1', " + 
                 "2 p/ 'Player 2' " +
                 "ou 3 p/ 'Computador': ");
@@ -50,7 +74,9 @@ public class Jogador {
         while(gamer != 1 && gamer != 2 && gamer != 3)
         {
             System.out.println("Número inválido!");
-            System.out.println("Digite 1 p/ 'Player 1' ou 3 p/ 'Computador': ");
+            System.out.println("Digite 1 p/ 'Player 1', 2 p/ 'Player 2 ou "
+                    + "3 p/ 'Computador': ");
+            
             gamer = scan.nextInt();
         }
         return gamer;
@@ -81,12 +107,14 @@ public class Jogador {
         return path;
     }
     
-    public Arquivo gerArquivo(int gamer){
+    public Arquivo gerArquivo(int gamer, int gamerAdvers){
         String path;
+        String pathAdvers;
         Arquivo arquiv;
         
         path = geraPath(gamer);
-        arquiv = new Arquivo(path);
+        pathAdvers = geraPath(gamerAdvers);
+        arquiv = new Arquivo(path, pathAdvers);
         
         return arquiv;
     }
@@ -118,7 +146,7 @@ public class Jogador {
         neste programa*/
         
         System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Porta-Aviões' : de '[A-J] + [0-9]': ");
+                + "o 'Porta-Aviões' : de '[0-9] + [0-9]': ");
         posicao = scan.next();
         
         PortaAvioes portAvioes = new PortaAvioes(orientacao);
@@ -147,7 +175,7 @@ public class Jogador {
         neste programa*/
         
         System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Navio-Tanque' : de '[A-J] + [0-9]': ");
+                + "o 'Navio-Tanque' : de '[0-9] + [0-9]': ");
         posicao = scan.next();
         
         NavioTanque navioTanque = new NavioTanque(orientacao);
@@ -178,7 +206,7 @@ public class Jogador {
         neste programa*/
         
         System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Cruzador' : de '[A-J] + [0-9]': ");
+                + "o 'Cruzador' : de '[0-9] + [0-9]': ");
         posicao = scan.next();
         
         Cruzador navioCruzador = new Cruzador(orientacao);
@@ -207,7 +235,7 @@ public class Jogador {
         neste programa*/
         
         System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Submarino' : de '[A-J] + [0-9]': ");
+                + "o 'Submarino' : de '[0-9] + [0-9]': ");
         posicao = scan.next();
         
         Submarino sub = new Submarino(orientacao);
@@ -238,7 +266,7 @@ public class Jogador {
         neste programa*/
         
         System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Destruidor' : de '[A-J] + [0-9]': ");
+                + "o 'Destruidor' : de '[0-9] + [0-9]': ");
         posicao = scan.next();
         
         Destruidor dest = new Destruidor(orientacao);
@@ -249,21 +277,67 @@ public class Jogador {
         }
         
         System.out.println();
-        
+        /*
         int verifica = 0; 
         System.out.println("Digite 1 para deletar o arquivo");
         verifica = scan.nextInt();
         
         if(verifica == 1)
             arq.deletarArquivo();
-        
+        */
     }
     
     public void disporNaviosRandom() {
         
     }
     
-    public void jogadas() {
+    public void buscarPos(Tabuleiro tab, String jogada, boolean achou)
+    {
+        int linha, coluna;
+        char aux;
+        aux = jogada.charAt(0);
+        linha = Integer.parseInt(String.valueOf(aux)) + 2;
+        aux = jogada.charAt(1);
+        coluna = Integer.parseInt(String.valueOf(aux)) + 2;
+        
+        if(achou) {
+            tab.setTabuleiro('x', linha, coluna);
+        }
+        else {
+            tab.setTabuleiro('~', linha, coluna);
+        }
+        
+        tab.imprimirTabuleiro();
+        
+        
+    }
+    
+    public void jogadas(Tabuleiro tab) {
+        boolean fim, achou;
+        String posicao;
+        
+        //fim = false;
+        achou = false;
+        int i = 0;
+        System.out.println("--------------------------------AGORA VOCÊ DEVE "
+                + "DIGITAR AS POSIÇÕES CUJO DESEJA REALIZAR O ATAQUE!!!"
+                + "--------------------------------");
+        System.out.println();
+        
+        /*esse while é só pra teste, deve manter a condição de verificação de fim de jogo*/
+        
+        while(i<5) {
+            System.out.print("Digite a posição cujo deseja atingir "
+                +  ": de '[0-9] + [0-9]': ");
+            posicao = scan.next();
+            
+            achou = arq.buscar(arq.getPathAdversario(), posicao);
+            buscarPos(tab, posicao, achou);
+            i++;
+            
+        }
+        
+        System.out.println();
         
     }
    

@@ -1,15 +1,24 @@
 package POO.Projeto.BatalhaNaval;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Arquivo {
 
     private String path;
+    private String pathAdversario;
 
-    public Arquivo(String path) {
+    public Arquivo(String path, String pathAdversario) {
         this.path = path;
+        this.pathAdversario = pathAdversario;
+    }
+
+    public String getPathAdversario() {
+        return pathAdversario;
     }
     
      public String getPath()
@@ -36,6 +45,26 @@ public class Arquivo {
             System.out.println("deu merda");
         }
     }
+    
+    public boolean buscar(String path, String posicao) {
+        String linha = " ";
+        try (FileReader fr = new FileReader(path)) {
+            BufferedReader br = new BufferedReader(fr);
+            
+            while (linha != null) {
+                
+                linha = br.readLine();
+                
+                if(linha != null && linha.equals(posicao)) {
+                    return true;
+                }
+            }
+        } 
+        catch(IOException e) {
+            System.out.println("Erro na leitura");
+        }
+        return false;
+}
     
     //--------------------------Ideias de alguns possíveis métodos---------------------------//
     
