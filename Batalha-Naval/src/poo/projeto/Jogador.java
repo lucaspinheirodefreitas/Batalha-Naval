@@ -292,20 +292,6 @@ public class Jogador {
         }
         
         System.out.println();
-        
-        /*
-        int verifica = 0; 
-        System.out.println("Digite 1 para fim do arquivo");
-        verifica = scan.nextInt();
-        
-        if(verifica == 1)
-            arq.acabou();
-        
-        
-        
-        if(verifica == 1)
-            arq.deletarArquivo();
-        */
     }
     
     public void disporNaviosRandom() {
@@ -335,26 +321,30 @@ public class Jogador {
         fim = false;
         achou = false;
         int alvosAtingidos = 0;
+        
         System.out.println("--------------------------------AGORA VOCÊ DEVE "
                 + "DIGITAR AS POSIÇÕES CUJO DESEJA REALIZAR O ATAQUE!!!"
                 + "--------------------------------");
         System.out.println();
         
-        /*esse while é só pra teste, deve manter a condição de verificação de fim de jogo*/
+        tab.imprimirTabuleiro();
+        
+        System.out.println();
         
         while(!fim) {
-            System.out.print("Digite a posição cujo deseja atingir "
-                +  ": de '[0-9] + [0-9]': ");
-            posicao = scan.next();
-            
             perdeu = arq.verificarFim(arq.getPathAdversario());
             
-            if(perdeu || alvosAtingidos == 16) {
+            if(perdeu) {
+                fim = true;
+            }
+            else if(alvosAtingidos == 17) {
                 arq.escrever(arq.getPath(), "fim");
                 fim = true;
-                //pensar melhor nessa implementação. Verificar a contagem de alvos atingidos.
             }
             else {
+                System.out.print("Digite a posição cujo deseja atingir "
+                +  ": de '[0-9] + [0-9]': ");
+                posicao = scan.next();
                 achou = arq.buscar(arq.getPathAdversario(), posicao);
                 if(achou) {
                     alvosAtingidos++;
@@ -363,19 +353,20 @@ public class Jogador {
                 System.out.println();
                 tab.imprimirTabuleiro();
                 System.out.println();
-            
             }
         }
         System.out.println();
         if(perdeu) {
-            System.out.println("Você foi derrotado!");
+            System.out.println(this.getNome() + ", você foi derrotado!");
             //aqui talvez da pra colocar o nome
         }
         else {
-            System.out.println("Fim de jogo, parabéns você venceu!");
+            System.out.println("Fim de jogo, parabéns " + this.getNome() + ", você venceu!");
             //aqui talvés da pra colocar o nome
         }
+        
+        arq.deletarArquivo();
+        
         System.out.println();
     }
-   
 }

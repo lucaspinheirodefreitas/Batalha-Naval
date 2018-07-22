@@ -21,13 +21,11 @@ public class Arquivo {
         return pathAdversario;
     }
     
-     public String getPath()
-    {
+     public String getPath() {
         return path;
     }
     
-    public void setPath(String path)
-    {
+    public void setPath(String path) {
         this.path = path;
     }
 
@@ -61,10 +59,26 @@ public class Arquivo {
             }
         } 
         catch(IOException e) {
-            System.out.println("Erro na leitura");
+            boolean controle = false;
+            
+            File file = new File(pathAdversario);
+
+            if(file.exists()){
+                System.out.println("Erro na leitura");
+            }
+            else {
+                System.out.println("Aguarde, o adversário ainda não definiu "
+                        + "a disposição dos seus navios.");
+                System.out.println();
+                while(!controle) {
+                    if(file.exists()) {
+                        controle = true;
+                    }
+                }
+            }
         }
         return false;
-}
+    }
     
     //--------------------------Ideias de alguns possíveis métodos---------------------------//
     
@@ -78,19 +92,13 @@ public class Arquivo {
         return false;
     }
     
-    public void apagarLinha()
-    {
-        
-    }
-    
     public void deletarArquivo()
     {
-        File file = new File(path);
+        File file = new File(pathAdversario);
         
         if(file.exists()){
             file.delete();
         }
-        
         /*posso pensar em usr isso
         boolean isFile() -> retorna true se o argumento passado ao construtor da File é um arquivo, falso o contrário*/
     }
@@ -99,23 +107,4 @@ public class Arquivo {
     {
         
     }
-    
-   
 } 
-
-/*public GeraArquivo()
-    {
-            ACHO QUE NÃO PRECISA DE CONSTRUTOR NESSA PARTE.
-    }
-
-    public void criArquivo(String path, String jogador, int num)              
- ///////////////////////PRECISO PENSAR MELHOR NESSA IMPLEMENTAÇÃO\\\\\\\\\\\\\\\\\\\\\\\\\\\
-{
-    /*File arquivo = new File(path);
-    System.out.println("Chegou aqui");
-    if(arquivo.exists()) 
-    {
-            System.out.println("Arquivo: " + jogador + num + "].\nCriado com sucesso!");
-    }
-    Não esta fazedo nada essa função, não sei como resolver.
-}*/
