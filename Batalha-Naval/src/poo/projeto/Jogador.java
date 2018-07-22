@@ -12,7 +12,7 @@ public class Jogador {
     
     public Jogador() {
         this.player = verificaGamer();
-        this.playerAdvs = verificaGamerTipo();
+        this.playerAdvs = verificaGamerTipo(this.player);
         this.nome = lerNome(player);
         arq = gerArquivo(player, playerAdvs);
     }
@@ -46,23 +46,6 @@ public class Jogador {
         return arq;
     }
     
-    public int verificaGamerTipo() {
-        int gamerTipo;
-        
-        
-        System.out.print("Digite 1 p/ o 'Computador'" +
-                "ou 2 p/ outro 'Adversario': ");
-        gamerTipo = scan.nextInt();
-      
-        while(gamerTipo != 1 && gamerTipo != 2)
-        {
-            System.out.println("Número inválido!");
-            System.out.println("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
-            gamerTipo = scan.nextInt();
-        }
-        return gamerTipo;
-    }
-    
     public int verificaGamer() {
         int gamer;
         
@@ -80,6 +63,33 @@ public class Jogador {
             gamer = scan.nextInt();
         }
         return gamer;
+    }
+    
+    public int verificaGamerTipo(int gamer) {
+        int gamerTipo;
+        
+        if(gamer == 1) {
+            System.out.println("-----------------------ESCOLHA DO ADVERSÁRIO!"
+                    + "-----------------------");
+            System.out.print("Digite 1 p/ o 'Computador'" +
+                "ou 2 p/ outro 'Adversario': ");
+            gamerTipo = scan.nextInt();
+      
+            while(gamerTipo != 1 && gamerTipo != 2) {
+                System.out.println("Número inválido!");
+                System.out.println("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
+                gamerTipo = scan.nextInt();
+            }
+            
+            if(gamerTipo == 1) {
+                gamerTipo = 3;
+            }
+            else {
+                gamerTipo = 2;
+            }
+            return gamerTipo;
+        }
+        return 1;
     }
     
     public String lerNome(int gamer) {
@@ -291,8 +301,7 @@ public class Jogador {
         
     }
     
-    public void buscarPos(Tabuleiro tab, String jogada, boolean achou)
-    {
+    public void buscarPos(Tabuleiro tab, String jogada, boolean achou) {
         int linha, coluna;
         char aux;
         aux = jogada.charAt(0);
@@ -306,10 +315,6 @@ public class Jogador {
         else {
             tab.setTabuleiro('~', linha, coluna);
         }
-        
-        tab.imprimirTabuleiro();
-        
-        
     }
     
     public void jogadas(Tabuleiro tab) {
@@ -333,8 +338,10 @@ public class Jogador {
             
             achou = arq.buscar(arq.getPathAdversario(), posicao);
             buscarPos(tab, posicao, achou);
+            System.out.println();
+            tab.imprimirTabuleiro();
+            System.out.println();
             i++;
-            
         }
         
         System.out.println();
