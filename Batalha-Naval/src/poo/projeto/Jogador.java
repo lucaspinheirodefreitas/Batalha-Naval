@@ -12,8 +12,8 @@ public class Jogador {
     
     public Jogador() {
         this.player = verificaGamer();
-        this.playerAdvs = verificaGamerTipo(this.player);
         this.nome = lerNome(player);
+        this.playerAdvs = verificaGamerTipo(this.player);
         arq = gerArquivo(player, playerAdvs);
     }
 
@@ -87,6 +87,7 @@ public class Jogador {
             else {
                 gamerTipo = 2;
             }
+            System.out.println();
             return gamerTipo;
         }
         return 1;
@@ -139,6 +140,9 @@ public class Jogador {
         String[] posicoesSubmarino = new String[3];
         String[] posicoesDestruidor = new String[2];
         
+        
+        System.out.println("-------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
+                + "NAVIOS!-------------------");
         /*-------------------------Porta-Aviões-------------------------------*/
         
         System.out.print("Digite a orientação cujo deseja inserir "
@@ -343,9 +347,7 @@ public class Jogador {
             System.out.println();
             i++;
         }
-        
         System.out.println();
-        
     }
    
 }
