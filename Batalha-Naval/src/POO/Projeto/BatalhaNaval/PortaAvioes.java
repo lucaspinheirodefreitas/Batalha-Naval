@@ -8,7 +8,7 @@ public class PortaAvioes extends Navio{
     
     public String[] posicoes(String posicaoInicial)
     {
-        String[] posicao = new String[5];
+        String[] posicao = new String[super.getTamanho()];
         char primeira, segunda;
         
         primeira = posicaoInicial.charAt(0);

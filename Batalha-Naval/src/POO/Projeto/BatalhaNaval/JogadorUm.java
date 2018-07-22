@@ -12,6 +12,7 @@ public class JogadorUm extends Jogador {
         this.posicao = " ";        
     }
     
+    @Override
     public void jogadas()
     {
         

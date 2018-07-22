@@ -9,8 +9,7 @@ public class Jogador {
     private int player;
     private Arquivo arq;
     
-    public Jogador()
-    {
+    public Jogador() {
         this.player = verificaGamer();
         this.nome = lerNome(player);
         arq = gerArquivo(player);
@@ -56,8 +55,7 @@ public class Jogador {
         return gamer;
     }
     
-    public String lerNome(int gamer)
-    {
+    public String lerNome(int gamer) {
         String nomeJogador;
         
         if(gamer == 1 || gamer == 2)
@@ -85,7 +83,7 @@ public class Jogador {
         Arquivo arquiv;
         
         path = geraPath(gamer);
-        arquiv = new Arquivo(path, true);
+        arquiv = new Arquivo(path);
         
         return arquiv;
     }
@@ -95,11 +93,15 @@ public class Jogador {
         char orientacao = ' ';
         String posicao;
         String[] posicoesPortaAvioes = new String[5];
-        String[] posicoesCruzador = new String[3];
+        String[] posicoesCruzador = new String[4];
+        String[] posicoesNavioTanque = new String[3];
+        String[] posicoesSubmarino = new String[2];
+        String[] posicoesDestruidor = new String[1];
         
+        /*-------------------------Porta-Aviões-------------------------------*/
         
         System.out.println("Digite a horientação cujo deseja inserir "
-                + "o 'Porta-Aviões [V - vertical] ou [H - horizontal");
+                + "o 'Porta-Aviões' [V - vertical] ou [H - horizontal");
         while(orientacao != 'h' && orientacao != 'H' 
                 && orientacao != 'v' && orientacao != 'E') {
             orientacao = scan.next().charAt(0);
@@ -117,9 +119,35 @@ public class Jogador {
         
         posicoesPortaAvioes = portAvioes.posicoes(posicao);
         
-        for(int i=0; i<posicoesPortaAvioes.length; i++)
-        {
-            arq.gravarPosicao(posicoesPortaAvioes[i]);
+        for(int i=0; i<posicoesPortaAvioes.length; i++){
+            arq.escrever(arq.getPath(), posicoesPortaAvioes[i]);
+        }
+        
+        /*-----------------------------Cruzador-------------------------------*/
+        
+        orientacao = ' ';
+        
+        System.out.println("Digite a horientação cujo deseja inserir "
+                + "o 'Cruzador' [V - vertical] ou [H - horizontal");
+        while(orientacao != 'h' && orientacao != 'H' 
+                && orientacao != 'v' && orientacao != 'E') {
+            orientacao = scan.next().charAt(0);
+        }
+        
+        /*Observação: o controle para verificar se a posição é válida ou não 
+        deve ser realizado apenas pelo usuário, essa condiçãp não é válidada 
+        neste programa*/
+        
+        System.out.println("Digite a posição cujo deseja inserir "
+                + "o 'Cruzador' : de '[A-J] + [0-9]'");
+        posicao = scan.next();
+        
+        Cruzador navioCruzador = new Cruzador(orientacao);
+        
+        posicoesCruzador = navioCruzador.posicoes(posicao);
+        
+        for(int i=0; i<posicoesPortaAvioes.length; i++){
+            arq.escrever(arq.getPath(), posicoesPortaAvioes[i]);
         }
         
     }
