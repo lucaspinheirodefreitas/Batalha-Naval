@@ -1,4 +1,5 @@
 package poo.projeto;
+import java.io.File;
 import java.util.Scanner;
 
 public class Jogador {
@@ -291,10 +292,16 @@ public class Jogador {
         }
         
         System.out.println();
+        
         /*
         int verifica = 0; 
-        System.out.println("Digite 1 para deletar o arquivo");
+        System.out.println("Digite 1 para fim do arquivo");
         verifica = scan.nextInt();
+        
+        if(verifica == 1)
+            arq.acabou();
+        
+        
         
         if(verifica == 1)
             arq.deletarArquivo();
@@ -322,12 +329,12 @@ public class Jogador {
     }
     
     public void jogadas(Tabuleiro tab) {
-        boolean fim, achou;
+        boolean fim, achou, perdeu;
         String posicao;
-        
-        //fim = false;
+        perdeu = false;
+        fim = false;
         achou = false;
-        int i = 0;
+        int alvosAtingidos = 0;
         System.out.println("--------------------------------AGORA VOCÊ DEVE "
                 + "DIGITAR AS POSIÇÕES CUJO DESEJA REALIZAR O ATAQUE!!!"
                 + "--------------------------------");
@@ -335,17 +342,38 @@ public class Jogador {
         
         /*esse while é só pra teste, deve manter a condição de verificação de fim de jogo*/
         
-        while(i<5) {
+        while(!fim) {
             System.out.print("Digite a posição cujo deseja atingir "
                 +  ": de '[0-9] + [0-9]': ");
             posicao = scan.next();
             
-            achou = arq.buscar(arq.getPathAdversario(), posicao);
-            buscarPos(tab, posicao, achou);
-            System.out.println();
-            tab.imprimirTabuleiro();
-            System.out.println();
-            i++;
+            perdeu = arq.verificarFim(arq.getPathAdversario());
+            
+            if(perdeu || alvosAtingidos == 16) {
+                arq.escrever(arq.getPath(), "fim");
+                fim = true;
+                //pensar melhor nessa implementação. Verificar a contagem de alvos atingidos.
+            }
+            else {
+                achou = arq.buscar(arq.getPathAdversario(), posicao);
+                if(achou) {
+                    alvosAtingidos++;
+                }
+                buscarPos(tab, posicao, achou);
+                System.out.println();
+                tab.imprimirTabuleiro();
+                System.out.println();
+            
+            }
+        }
+        System.out.println();
+        if(perdeu) {
+            System.out.println("Você foi derrotado!");
+            //aqui talvez da pra colocar o nome
+        }
+        else {
+            System.out.println("Fim de jogo, parabéns você venceu!");
+            //aqui talvés da pra colocar o nome
         }
         System.out.println();
     }

@@ -68,9 +68,14 @@ public class Arquivo {
     
     //--------------------------Ideias de alguns possíveis métodos---------------------------//
     
-    public void inserirAcabou()
+    public boolean verificarFim(String path)
     {
+        boolean achou = buscar(path, "fim");
         
+        if(achou) {
+            return true;
+        }
+        return false;
     }
     
     public void apagarLinha()
@@ -85,7 +90,9 @@ public class Arquivo {
         if(file.exists()){
             file.delete();
         }
-            
+        
+        /*posso pensar em usr isso
+        boolean isFile() -> retorna true se o argumento passado ao construtor da File é um arquivo, falso o contrário*/
     }
     
     public void inserirVencedor()
