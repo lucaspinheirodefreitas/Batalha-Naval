@@ -19,14 +19,8 @@ public class Tabuleiro {
                     campo[i][j] = new Celula(' ');
                 }
                 else {
-                    if(i == 0 && j>1 && j<campo[0].length-2) {
-                        campo[i][j] = new Celula((char)(numCol+j-2));
-                    }
-                    else if(i == 0 && j>1 && j<campo[0].length-1) {
-                        campo[i][j] = new Celula('1');
-                    }
-                    else if(i == 0 && j>1 && j<campo[0].length) {
-                        campo[i][j] = new Celula('0');
+                    if(i == 0 && j>1 && j<campo[0].length-1) {
+                        campo[i][j] = new Celula((char)(numCol+j-3));
                     }
                     else {
                         if(i>1 && j == 0 && i<campo.length-1) {
