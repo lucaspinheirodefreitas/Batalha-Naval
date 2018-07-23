@@ -98,6 +98,8 @@ public class Arquivo {
             file.delete();
         }
         /*posso pensar em usr isso
-        boolean isFile() -> retorna true se o argumento passado ao construtor da File é um arquivo, falso o contrário*/
+        boolean isFile() -> retorna true se o argumento passado ao construtor da 
+        File é um arquivo, falso o contrário
+        */
     }
 } 
