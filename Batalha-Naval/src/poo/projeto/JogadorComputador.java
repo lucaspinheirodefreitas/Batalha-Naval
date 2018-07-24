@@ -6,6 +6,10 @@ public class JogadorComputador extends Jogador {
     
     Random gerador = new Random();
     
+    public JogadorComputador(int player) {
+       super(player);
+    }
+    
     @Override
     public void disporNavios() {
         char orientacao;
@@ -22,6 +26,7 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Porta-Aviões-------------------------------*/
         
         orientacao = lerOrientacao();
+        System.out.println(orientacao);
         posicoesPortaAvioes = lerPosicao(5, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -30,6 +35,7 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Navio-Tanque-------------------------------*/
         
         orientacao = lerOrientacao();
+        System.out.println(orientacao);
         posicoesNavioTanque = lerPosicao(4, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -38,6 +44,7 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Cruzador-------------------------------*/
         
         orientacao = lerOrientacao();
+        System.out.println(orientacao);
         posicoesCruzador = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -45,6 +52,7 @@ public class JogadorComputador extends Jogador {
         /*----------------------------Submarino-------------------------------*/
         
         orientacao = lerOrientacao();
+        System.out.println(orientacao);
         posicoesSubmarino = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -53,6 +61,7 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Destruidor-----------------------------*/
         
         orientacao = lerOrientacao();
+        System.out.println(orientacao);
         posicoesDestruidor = lerPosicao(2, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -97,30 +106,33 @@ public class JogadorComputador extends Jogador {
     
     @Override
     public String[] lerPosicao(int tamanho, char orientacao) {
+        boolean validaPosicoes = false;
         int auxPosicao;
         String [] posicoes = new String[tamanho];
         String posicao;
-        
-        /*falta verificar se a posição gerada é válida. 
-        Pois é necessário que a posição seja válida, é interessante implementar
-        um método que sirva para válidar a posição gerada pelo computador e 
-        também sirva para validar a posição digitada pelo usuário
-        */
         
         auxPosicao = gerador.nextInt(10);
         posicao = Integer.toString(auxPosicao);
         auxPosicao = gerador.nextInt(10);
         posicao += Integer.toString(auxPosicao);
-        System.out.println(posicao);
         
-        Navio nav = new Navio(tamanho, orientacao);
-        posicoes = nav.posicoes(posicao);
+        Navio navio = new Navio(tamanho, orientacao);
+        posicoes = navio.posicoes(posicao);
+        validaPosicoes = navio.validarPosicoes(posicoes);
         
+        while(!validaPosicoes) {
+            auxPosicao = gerador.nextInt(10);
+            posicao = Integer.toString(auxPosicao);
+            auxPosicao = gerador.nextInt(10);
+            posicao += Integer.toString(auxPosicao);
+            
+            posicoes = navio.posicoes(posicao);
+            validaPosicoes = navio.validarPosicoes(posicoes);
+        }
         for(int i=0; i<posicoes.length; i++){
             getArquivo().escrever(getArquivo().getPath(), posicoes[i]);
         }
         System.out.println();
-        
         return posicoes;
     }
     

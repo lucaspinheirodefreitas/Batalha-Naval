@@ -33,7 +33,14 @@ public class Navio {
         }
         return posicao;
     }
-    
+    /*
+    Esse metodo não verifica se a posição já foi utilizada anteriormente por 
+    outro navio, seria interessante talvez utilizar o metodo de busca de 
+    posição de um campo antes de inserir o campo no arquivo, e se a posição 
+    for encontrada dentro do arquivo o metodo validarPosicoes também retorna 
+    falso, que lá no metodo que chamou o validar Posicoes significa que a 
+    posicao é inválida.
+    */
     public boolean validarPosicoes(String[] posicoes) {
         char primeira, segunda;
         int verificaPrimeira, verificaSegunda;

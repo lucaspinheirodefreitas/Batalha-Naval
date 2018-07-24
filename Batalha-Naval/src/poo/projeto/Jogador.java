@@ -10,8 +10,8 @@ public class Jogador {
     private int playerAdvs;
     private Arquivo arq;
     
-    public Jogador() {
-        this.player = verificaGamer();
+    public Jogador(int player) {
+        this.player = player;
         this.nome = lerNome(player);
         this.playerAdvs = verificaGamerTipo(this.player);
         arq = gerArquivo(player, playerAdvs);
@@ -43,25 +43,6 @@ public class Jogador {
     
     public Arquivo getArquivo(){
         return arq;
-    }
-    
-    private int verificaGamer() {
-        int gamer;
-        
-        System.out.print("Digite 1 p/ 'Player 1', " + 
-                "2 p/ 'Player 2' " +
-                "ou 3 p/ 'Computador': ");
-        gamer = scan.nextInt();
-        
-        while(gamer != 1 && gamer != 2 && gamer != 3)
-        {
-            System.out.println("Número inválido!");
-            System.out.println("Digite 1 p/ 'Player 1', 2 p/ 'Player 2 ou "
-                    + "3 p/ 'Computador': ");
-            
-            gamer = scan.nextInt();
-        }
-        return gamer;
     }
     
     private int verificaGamerTipo(int gamer) {
