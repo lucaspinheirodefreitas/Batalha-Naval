@@ -17,7 +17,7 @@ public class JogadorComputador extends Jogador {
         String[] posicoesSubmarino = new String[3];
         String[] posicoesDestruidor = new String[2];
         
-        System.out.println("-------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
+        System.out.println("--------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
                 + "NAVIOS!-------------------");
         /*-------------------------Porta-Aviões-------------------------------*/
         
