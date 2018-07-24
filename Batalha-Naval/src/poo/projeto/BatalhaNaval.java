@@ -8,18 +8,13 @@ public class BatalhaNaval {
         campoBatalha.inicializarTabuleiro();
         campoBatalha.imprimirTabuleiro();
         Jogador player = new Jogador();
-        disporNavios(player);
-        player.jogadas(campoBatalha);
-        
-    }
-    
-    public static void disporNavios(Jogador jogador) {
-        
-        if(jogador.getPlayer() == 3) {
-            //((JogadorComputador)jogador).escreverAquiNomeDoMetodo;
+        if(player.getPlayer() == 3) {
+            ((JogadorComputador)player).disporNavios();
+            ((JogadorComputador)player).jogadas(campoBatalha);
         }
         else {
-            jogador.disporNavios();
+            player.disporNavios();
+            player.jogadas(campoBatalha);
         }
     }
 }

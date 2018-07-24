@@ -33,6 +33,31 @@ public class Navio {
         }
         return posicao;
     }
+    
+    public boolean validarPosicoes(String[] posicoes) {
+        char primeira, segunda;
+        int verificaPrimeira, verificaSegunda;
+        
+        for(int i=0; i<posicoes.length; i++) {
+            //System.out.println("Antes.");
+            primeira = posicoes[i].charAt(0);
+            segunda = posicoes[i].charAt(1);
+            //System.out.println("Depois.");
+            //System.out.println(primeira);
+            //System.out.println(segunda);
+            verificaPrimeira = Integer.parseInt(String.valueOf(primeira));
+            //System.out.println("VerificaPrimeira.");
+            //System.out.println(verificaPrimeira);
+            verificaSegunda = Integer.parseInt(String.valueOf(segunda));
+            //System.out.println("verificaSegunda.");
+            //System.out.println(verificaSegunda);
+            if((verificaPrimeira == 9 && i<(posicoes.length-1)) || (verificaSegunda == 9 && i<(posicoes.length-1))) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 
     public int getTamanho() {
         return tamanho;

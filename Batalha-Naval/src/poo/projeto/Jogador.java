@@ -45,7 +45,7 @@ public class Jogador {
         return arq;
     }
     
-    public int verificaGamer() {
+    private int verificaGamer() {
         int gamer;
         
         System.out.print("Digite 1 p/ 'Player 1', " + 
@@ -64,7 +64,7 @@ public class Jogador {
         return gamer;
     }
     
-    public int verificaGamerTipo(int gamer) {
+    private int verificaGamerTipo(int gamer) {
         int gamerTipo;
         
         if(gamer == 1) {
@@ -92,7 +92,7 @@ public class Jogador {
         return 1;
     }
     
-    public String lerNome(int gamer) {
+    private String lerNome(int gamer) {
         String nomeJogador;
         
         if(gamer == 1 || gamer == 2) {
@@ -115,7 +115,7 @@ public class Jogador {
         return path;
     }
     
-    public Arquivo gerArquivo(int gamer, int gamerAdvers){
+    private Arquivo gerArquivo(int gamer, int gamerAdvers){
         String path;
         String pathAdvers;
         Arquivo arquiv;
@@ -139,107 +139,34 @@ public class Jogador {
         return orientacao;
     }
     
-    /*Pensei em uma melhoria que irá reduzir muito a quantidade de códigos, 
-    basta passar como parametro o tamanho que deve ter cada tipo de navio,
-    ai a função ler posições receberia como parâmetro a orientação e o tamanho
-    Basta alterar um dos metodos para um formato mais generico e deletar os 
-    demais, ai bastaria também alterar o nome do metodo na chamada que seria 
-    mais generico, tipo lerPosicao.
-    */
-    public String[] lerPosicaoNavioTanque(char orientacao) {
-        String [] posicoesNavioTanque = new String[5];
+    public String[] lerPosicao(int tamanho, char orientacao) {
+        String [] posicoes = new String[tamanho];
         String posicao;
+        boolean validaPosicoes = false;
         
         posicao = scan.next();
         
-        NavioTanque navioTanque = new NavioTanque(orientacao);
-        posicoesNavioTanque = navioTanque.posicoes(posicao);
+        Navio navio = new Navio(tamanho, orientacao);
+        posicoes = navio.posicoes(posicao);
+        validaPosicoes = navio.validarPosicoes(posicoes);
         
-        for(int i=0; i<posicoesNavioTanque.length; i++){
-            arq.escrever(arq.getPath(), posicoesNavioTanque[i]);
+        while(!validaPosicoes) {
+            System.out.print("A posição digitada é inválida, insira uma nova "
+                    + "posição: de '[0-9] + [0-9]': ");
+            posicao = scan.next();
+            posicoes = navio.posicoes(posicao);
+            validaPosicoes = navio.validarPosicoes(posicoes);
+        }
+        for(int i=0; i<posicoes.length; i++){
+            arq.escrever(arq.getPath(), posicoes[i]);
         }
         
         System.out.println();
         
-        return posicoesNavioTanque;
+        return posicoes;
     }
-    
-    public String[] lerPosicaoPortaAvioes(char orientacao) {
-        String [] posicoesPortaAvioes = new String[4];
-        String posicao;
-        
-        posicao = scan.next();
-        PortaAvioes portAvioes = new PortaAvioes(orientacao);
-        posicoesPortaAvioes = portAvioes.posicoes(posicao);
-        
-        for(int i=0; i<posicoesPortaAvioes.length; i++){
-            arq.escrever(arq.getPath(), posicoesPortaAvioes[i]);
-        }
-        
-        System.out.println();
-        
-        return posicoesPortaAvioes;
-    }
-    
-    public String[] lerPosicaoCruzador(char orientacao) {
-        String [] posicoesCruzador = new String[3];
-        String posicao;
-        
-        posicao = scan.next();
-        Cruzador navioCruzador = new Cruzador(orientacao);
-        posicoesCruzador = navioCruzador.posicoes(posicao);
-        
-        for(int i=0; i<posicoesCruzador.length; i++){
-            arq.escrever(arq.getPath(), posicoesCruzador[i]);
-        }
-        
-        System.out.println();
-        
-        return posicoesCruzador;
-    }
-    
-    public String[] lerPosicaoSubmarino(char orientacao) {
-        String[] posicoesSubmarino = new String[3];
-        String posicao;
-        
-        posicao = scan.next();
-        
-        Submarino sub = new Submarino(orientacao);
-        posicoesSubmarino = sub.posicoes(posicao);
-        
-        for(int i=0; i<posicoesSubmarino.length; i++){
-            arq.escrever(arq.getPath(), posicoesSubmarino[i]);
-        }
-        
-        System.out.println();
-        
-        return posicoesSubmarino;
-    }
-    
-    public String[] lerPosicaoDestruidor(char orientacao) {
-        String[] posicoesDestruidor = new String[2];
-        String posicao;
-        
-        posicao = scan.next();
-        
-        Destruidor dest = new Destruidor(orientacao);
-        posicoesDestruidor = dest.posicoes(posicao);
-        
-        for(int i=0; i<posicoesDestruidor.length; i++){
-            arq.escrever(arq.getPath(), posicoesDestruidor[i]);
-        }
-        
-        System.out.println();
-        
-        return posicoesDestruidor;
-    }
-    
-    /*Observação: o controle para verificar se a posição é válida ou não 
-    deve ser realizado apenas pelo usuário, essa condiçãp não é válidada 
-    neste programa*/
     
     public void disporNavios() {
-        boolean controle = true;
         char orientacao = ' ';
         String posicao;
         String[] posicoesPortaAvioes = new String[5];
@@ -250,6 +177,7 @@ public class Jogador {
         
         System.out.println("-------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
                 + "NAVIOS!-------------------");
+        
         /*-------------------------Porta-Aviões-------------------------------*/
         
         System.out.print("Digite a orientação cujo deseja inserir "
@@ -260,7 +188,7 @@ public class Jogador {
         System.out.print("Digite a posição cujo deseja inserir "
                 + "o 'Porta-Aviões' : de '[0-9] + [0-9]': ");
         
-        posicoesPortaAvioes = lerPosicaoPortaAvioes(orientacao);
+        posicoesPortaAvioes = lerPosicao(5, orientacao);
         
         /*-------------------------Navio-Tanque-------------------------------*/
         
@@ -271,7 +199,7 @@ public class Jogador {
         System.out.print("Digite a posição cujo deseja inserir "
                 + "o 'Navio-Tanque' : de '[0-9] + [0-9]': ");
         
-        posicoesNavioTanque = lerPosicaoNavioTanque(orientacao);
+        posicoesNavioTanque = lerPosicao(4, orientacao);
         
         /*-----------------------------Cruzador-------------------------------*/
         
@@ -281,7 +209,7 @@ public class Jogador {
         
         System.out.print("Digite a posição cujo deseja inserir "
                 + "o 'Cruzador' : de '[0-9] + [0-9]': ");
-        posicoesCruzador = lerPosicaoCruzador(orientacao);
+        posicoesCruzador = lerPosicao(3, orientacao);
         
         /*----------------------------Submarino-------------------------------*/
         
@@ -291,10 +219,9 @@ public class Jogador {
         
         System.out.print("Digite a posição cujo deseja inserir "
                 + "o 'Submarino' : de '[0-9] + [0-9]': ");
-        posicoesSubmarino = lerPosicaoSubmarino(orientacao);
-        /*-----------------------------Destruidor-----------------------------*/
+        posicoesSubmarino = lerPosicao(3, orientacao);
         
-        orientacao = ' ';
+        /*-----------------------------Destruidor-----------------------------*/
         
         System.out.print("Digite a orientação cujo deseja inserir "
                 + "o 'Destruidor' [V - vertical] ou [H - horizontal]: ");
@@ -302,7 +229,7 @@ public class Jogador {
         
         System.out.print("Digite a posição cujo deseja inserir "
                 + "o 'Destruidor' : de '[0-9] + [0-9]': ");
-        posicoesDestruidor = lerPosicaoDestruidor(orientacao);
+        posicoesDestruidor = lerPosicao(2, orientacao);
     }
     
     public void buscarPos(Tabuleiro tab, String jogada, boolean achou) {
