@@ -133,6 +133,12 @@ public class Jogador {
         verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         
         while(verificaRepeticao || !validaPosicoes) {
+            if(verificaRepeticao) {
+                System.out.println("A posição já está sendo usada por outro Navio.");
+            }
+            else {
+                
+            }
             System.out.print("Insira uma nova "
                     + "posição: de '[0-9] + [0-9]': ");
             posicao = scan.next();

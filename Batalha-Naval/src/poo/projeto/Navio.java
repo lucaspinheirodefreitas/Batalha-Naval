@@ -42,7 +42,6 @@ public class Navio {
         for(int i=0; i<posicoes.length; i++) {
             buscaRepeticao = arq.buscar(arq.getPath(), posicoes[i]);
             if(buscaRepeticao) {
-                System.out.println("A posição já está sendo usada por outro Navio.");
                 return true;
             }
         }
