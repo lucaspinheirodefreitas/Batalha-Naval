@@ -26,7 +26,6 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Porta-Aviões-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesPortaAvioes = lerPosicao(5, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -35,7 +34,6 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Navio-Tanque-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesNavioTanque = lerPosicao(4, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -44,7 +42,6 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Cruzador-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesCruzador = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -52,7 +49,6 @@ public class JogadorComputador extends Jogador {
         /*----------------------------Submarino-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesSubmarino = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "
@@ -61,7 +57,6 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Destruidor-----------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesDestruidor = lerPosicao(2, orientacao);
         
         System.out.println("O computador definiu a posição que será inserido "

@@ -137,7 +137,7 @@ public class Jogador {
                 System.out.println("A posição já está sendo usada por outro Navio.");
             }
             else {
-                
+                  System.out.println("A posição extrapola os limites do tabuleiro!");
             }
             System.out.print("Insira uma nova "
                     + "posição: de '[0-9] + [0-9]': ");

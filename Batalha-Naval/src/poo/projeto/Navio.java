@@ -63,7 +63,6 @@ public class Navio {
             verificaColuna = Integer.parseInt(String.valueOf(coluna));
             
             if((verificaLinha == 9 && i<(posicoes.length-1) && orient == 'v') || (verificaColuna == 9 && i<(posicoes.length-1)) && orient == 'h') {
-                System.out.println("A posição extrapola os limites do tabuleiro!");
                 return false;
             }
         }
