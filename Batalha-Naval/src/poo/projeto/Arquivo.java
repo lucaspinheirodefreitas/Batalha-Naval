@@ -50,7 +50,7 @@ public class Arquivo {
         catch(Exception e) {
             System.out.println("problema na escrita do arquivo!");
         }
-    }
+    }  
     
     public boolean buscar(String path, String posicao) {
         String linha = " ";

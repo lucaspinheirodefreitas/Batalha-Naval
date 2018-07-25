@@ -134,7 +134,7 @@ public class JogadorComputador extends Jogador {
         }
         System.out.println();
         return posicoes;
-    }
+    }  
     
     @Override
     public void jogadas(Tabuleiro tab) {

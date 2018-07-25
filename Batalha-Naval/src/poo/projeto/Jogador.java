@@ -141,6 +141,7 @@ public class Jogador {
             verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         }
         
+        
         for(int i=0; i<posicoes.length; i++){
             arq.escrever(arq.getPath(), posicoes[i]);
         }

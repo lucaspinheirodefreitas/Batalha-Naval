@@ -69,7 +69,7 @@ public class Navio {
             }
         }
         return true;
-    }
+    }  
 
     public int getTamanho() {
         return tamanho;

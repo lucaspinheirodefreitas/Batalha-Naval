@@ -25,7 +25,7 @@ public class BatalhaNaval {
                     + "3 p/ 'Computador': ");
             
             gamer = scan.nextInt();
-        }
+        }  
         
         if(gamer == 3) {
             JogadorComputador pc = new JogadorComputador(3);
