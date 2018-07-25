@@ -10,7 +10,6 @@ public class BatalhaNaval {
         Tabuleiro campoBatalha = new Tabuleiro(13, 13);
         campoBatalha.inicializarTabuleiro();
         campoBatalha.imprimirTabuleiro();
-        
                 
         System.out.print("Digite 1 p/ 'Player 1', " + 
                 "2 p/ 'Player 2' " +

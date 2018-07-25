@@ -121,23 +121,26 @@ public class Jogador {
     }
     
     public String[] lerPosicao(int tamanho, char orientacao) {
-        String [] posicoes = new String[tamanho];
+        String [] posicoes;
         String posicao;
-        boolean validaPosicoes = false;
+        boolean validaPosicoes, verificaRepeticao;
         
         posicao = scan.next();
-        
+        arq.criarArquivo(arq.getPath());
         Navio navio = new Navio(tamanho, orientacao);
         posicoes = navio.posicoes(posicao);
         validaPosicoes = navio.validarPosicoes(posicoes);
+        verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         
-        while(!validaPosicoes) {
-            System.out.print("A posição digitada é inválida, insira uma nova "
+        while(verificaRepeticao || !validaPosicoes) {
+            System.out.print("Insira uma nova "
                     + "posição: de '[0-9] + [0-9]': ");
             posicao = scan.next();
             posicoes = navio.posicoes(posicao);
             validaPosicoes = navio.validarPosicoes(posicoes);
+            verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         }
+        
         for(int i=0; i<posicoes.length; i++){
             arq.escrever(arq.getPath(), posicoes[i]);
         }
