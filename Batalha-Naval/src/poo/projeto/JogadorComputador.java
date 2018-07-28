@@ -29,7 +29,6 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Porta-AviÃµes-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesPortaAvioes = lerPosicao(5, orientacao);
         
         System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
@@ -38,7 +37,6 @@ public class JogadorComputador extends Jogador {
         /*-------------------------Navio-Tanque-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesNavioTanque = lerPosicao(4, orientacao);
         
         System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
@@ -47,7 +45,6 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Cruzador-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesCruzador = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
@@ -55,7 +52,6 @@ public class JogadorComputador extends Jogador {
         /*----------------------------Submarino-------------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesSubmarino = lerPosicao(3, orientacao);
         
         System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
@@ -64,7 +60,6 @@ public class JogadorComputador extends Jogador {
         /*-----------------------------Destruidor-----------------------------*/
         
         orientacao = lerOrientacao();
-        System.out.println(orientacao);
         posicoesDestruidor = lerPosicao(2, orientacao);
         
         System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
@@ -111,35 +106,38 @@ public class JogadorComputador extends Jogador {
     
     @Override
     public String[] lerPosicao(int tamanho, char orientacao) {
-        boolean validaPosicoes = false;
+        boolean validaPosicoes, verificaRepeticao;
         int auxPosicao;
-        String [] posicoes = new String[tamanho];
+        String [] posicoes;
         String posicao;
         
+        super.getArquivo().criarArquivo(super.getArquivo().getPath());
         auxPosicao = gerador.nextInt(10);
         posicao = Integer.toString(auxPosicao);
         auxPosicao = gerador.nextInt(10);
         posicao += Integer.toString(auxPosicao);
-        
+
         Navio navio = new Navio(tamanho, orientacao);
         posicoes = navio.posicoes(posicao);
         validaPosicoes = navio.validarPosicoes(posicoes);
+        verificaRepeticao = navio.verificaRepeticao(super.getArquivo(), posicoes);
         
-        while(!validaPosicoes) {
+        while(verificaRepeticao || !validaPosicoes) {
             auxPosicao = gerador.nextInt(10);
             posicao = Integer.toString(auxPosicao);
             auxPosicao = gerador.nextInt(10);
             posicao += Integer.toString(auxPosicao);
-            
             posicoes = navio.posicoes(posicao);
             validaPosicoes = navio.validarPosicoes(posicoes);
+            verificaRepeticao = navio.verificaRepeticao(super.getArquivo(), posicoes);
         }
+        
         for(int i=0; i<posicoes.length; i++){
-            getArquivo().escrever(getArquivo().getPath(), posicoes[i]);
+            super.getArquivo().escrever(super.getArquivo().getPath(), posicoes[i]);
         }
         System.out.println();
         return posicoes;
-    }
+    }  
     
     @Override
     public void jogadas(Tabuleiro tab) {

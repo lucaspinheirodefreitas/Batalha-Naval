@@ -38,19 +38,31 @@ public class Arquivo {
         this.path = path;
     }
     
+<<<<<<< HEAD
+=======
+    public void criarArquivo(String path)
+    {
+            try (FileWriter fw = new FileWriter(path, true)) {
+                BufferedWriter conexao = new BufferedWriter(fw);
+            } 
+            catch(Exception e) {
+                System.out.println("problema ao gerar arquivo!");
+            }
+    }
+
+>>>>>>> master
     public void escrever(String path, String texto)
     {
-        try {
-            FileWriter fw = new FileWriter(path, true);
+        try (FileWriter fw = new FileWriter(path, true)) {
             BufferedWriter conexao = new BufferedWriter(fw);
             conexao.write(texto);
             conexao.newLine();
             conexao.close();  
         } 
         catch(Exception e) {
-            System.out.println("deu merda");
+            System.out.println("problema na escrita do arquivo!");
         }
-    }
+    }  
     
     public boolean buscar(String path, String posicao) {
         String linha = " ";

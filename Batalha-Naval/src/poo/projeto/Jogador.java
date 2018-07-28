@@ -125,23 +125,39 @@ public class Jogador {
     }
     
     public String[] lerPosicao(int tamanho, char orientacao) {
-        String [] posicoes = new String[tamanho];
+        String [] posicoes;
         String posicao;
-        boolean validaPosicoes = false;
+        boolean validaPosicoes, verificaRepeticao;
         
         posicao = scan.next();
-        
+        arq.criarArquivo(arq.getPath());
         Navio navio = new Navio(tamanho, orientacao);
         posicoes = navio.posicoes(posicao);
         validaPosicoes = navio.validarPosicoes(posicoes);
+        verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         
+<<<<<<< HEAD
         while(!validaPosicoes) {
             System.out.print("A posiÃ§Ã£o digitada Ã© invÃ¡lida, insira uma nova "
                     + "posiÃ§Ã£o: de '[0-9] + [0-9]': ");
+=======
+        while(verificaRepeticao || !validaPosicoes) {
+            if(verificaRepeticao) {
+                System.out.println("A posição já está sendo usada por outro Navio.");
+            }
+            else {
+                  System.out.println("A posição extrapola os limites do tabuleiro!");
+            }
+            System.out.print("Insira uma nova "
+                    + "posição: de '[0-9] + [0-9]': ");
+>>>>>>> master
             posicao = scan.next();
             posicoes = navio.posicoes(posicao);
             validaPosicoes = navio.validarPosicoes(posicoes);
+            verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         }
+        
+        
         for(int i=0; i<posicoes.length; i++){
             arq.escrever(arq.getPath(), posicoes[i]);
         }

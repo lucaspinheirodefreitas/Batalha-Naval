@@ -1,5 +1,7 @@
 package poo.projeto;
 
+import static java.lang.Character.toLowerCase;
+
 public class Navio {
     private int tamanho;
     private char orientacao;
@@ -33,30 +35,39 @@ public class Navio {
         }
         return posicao;
     }
-    /*
-    Esse metodo não verifica se a posição já foi utilizada anteriormente por 
-    outro navio, seria interessante talvez utilizar o metodo de busca de 
-    posição de um campo antes de inserir o campo no arquivo, e se a posição 
-    for encontrada dentro do arquivo o metodo validarPosicoes também retorna 
-    falso, que lá no metodo que chamou o validar Posicoes significa que a 
-    posicao é inválida.
-    */
-    public boolean validarPosicoes(String[] posicoes) {
-        char primeira, segunda;
-        int verificaPrimeira, verificaSegunda;
+    
+    public boolean verificaRepeticao(Arquivo arq, String[] posicoes) {
+        boolean buscaRepeticao;
         
         for(int i=0; i<posicoes.length; i++) {
-            primeira = posicoes[i].charAt(0);
-            segunda = posicoes[i].charAt(1);
-            verificaPrimeira = Integer.parseInt(String.valueOf(primeira));
-            verificaSegunda = Integer.parseInt(String.valueOf(segunda));
-            if((verificaPrimeira == 9 && i<(posicoes.length-1)) || (verificaSegunda == 9 && i<(posicoes.length-1))) {
-                return false;
+            buscaRepeticao = arq.buscar(arq.getPath(), posicoes[i]);
+            if(buscaRepeticao) {
+                return true;
             }
         }
         
-        return true;
+        return false;
     }
+       
+    
+    public boolean validarPosicoes(String[] posicoes) {
+        char linha, coluna;
+        int verificaLinha, verificaColuna;
+        
+        for(int i=0; i<posicoes.length; i++) {
+            char orient;
+            orient = toLowerCase(this.orientacao);
+            linha = posicoes[i].charAt(0);
+            coluna = posicoes[i].charAt(1);
+            verificaLinha = Integer.parseInt(String.valueOf(linha));
+            verificaColuna = Integer.parseInt(String.valueOf(coluna));
+            
+            if((verificaLinha == 9 && i<(posicoes.length-1) && orient == 'v') || (verificaColuna == 9 && i<(posicoes.length-1)) && orient == 'h') {
+                return false;
+            }
+        }
+        return true;
+    }  
 
     public int getTamanho() {
         return tamanho;
