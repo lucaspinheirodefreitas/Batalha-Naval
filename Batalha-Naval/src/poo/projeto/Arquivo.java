@@ -3,18 +3,27 @@ package poo.projeto;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Arquivo {
 
     private String path;
     private String pathAdversario;
+    private String pathControladorDeTurno = "ControladorDeTurno.txt";
 
     public Arquivo(String path, String pathAdversario) {
         this.path = path;
         this.pathAdversario = pathAdversario;
+    }
+    
+    public Arquivo() {
+  
     }
 
     public String getPathAdversario() {
@@ -28,8 +37,7 @@ public class Arquivo {
     public void setPath(String path) {
         this.path = path;
     }
-
-
+    
     public void escrever(String path, String texto)
     {
         try {
@@ -91,6 +99,7 @@ public class Arquivo {
     }
     
     public void deletarArquivo()
+
     {
         File file = new File(pathAdversario);
         
@@ -101,5 +110,71 @@ public class Arquivo {
         boolean isFile() -> retorna true se o argumento passado ao construtor da 
         File é um arquivo, falso o contrário
         */
+    }
+    
+    public void criarControladorTurno() throws IOException {
+
+    	FileWriter fw = new FileWriter(pathControladorDeTurno, true);
+    	BufferedWriter conexao = new BufferedWriter(fw);
+    	
+    	conexao.write("1");
+    	conexao.newLine();
+    	conexao.close();
+    }
+    
+    
+    public String verificarTurno() throws IOException {
+    	
+    	String vez = "";
+		try {
+			InputStream is = new FileInputStream(pathControladorDeTurno);
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+
+			String line = "";
+			while (line != null) {
+				line = br.readLine();
+				if (line != null) {
+					vez = line;
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return vez;
+    }
+
+    public void alterarTurno() {
+    	String atual = " ";
+    	char vez = ' ';
+    	
+    	try {
+			 atual = verificarTurno();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
+    	try {
+			if (verificarTurno().charAt(0) == '3')
+				vez = '1';
+			else
+				vez = pathAdversario.charAt(1);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
+    	try {
+            FileWriter fw = new FileWriter(pathControladorDeTurno, true);
+            BufferedWriter conexao = new BufferedWriter(fw);
+            conexao.write(vez);
+            conexao.newLine();
+            conexao.close();  
+        } 
+        catch(Exception e) {
+            System.out.println("deu merda");
+        }
     }
 } 

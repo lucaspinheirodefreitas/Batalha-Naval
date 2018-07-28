@@ -1,5 +1,6 @@
 package poo.projeto;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class JogadorComputador extends Jogador {
@@ -8,6 +9,7 @@ public class JogadorComputador extends Jogador {
     
     public JogadorComputador(int player) {
        super(player);
+       
     }
     
     @Override
@@ -21,16 +23,17 @@ public class JogadorComputador extends Jogador {
         String[] posicoesSubmarino = new String[3];
         String[] posicoesDestruidor = new String[2];
         
-        System.out.println("--------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
+        
+        System.out.println("--------------------DEFINIÃ‡ÃƒO DA DISPOSIÃ‡ÃƒO DOS "
                 + "NAVIOS!-------------------");
-        /*-------------------------Porta-Aviões-------------------------------*/
+        /*-------------------------Porta-AviÃµes-------------------------------*/
         
         orientacao = lerOrientacao();
         System.out.println(orientacao);
         posicoesPortaAvioes = lerPosicao(5, orientacao);
         
-        System.out.println("O computador definiu a posição que será inserido "
-                + "o Porta-Aviões!");
+        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
+                + "o Porta-AviÃµes!");
         
         /*-------------------------Navio-Tanque-------------------------------*/
         
@@ -38,7 +41,7 @@ public class JogadorComputador extends Jogador {
         System.out.println(orientacao);
         posicoesNavioTanque = lerPosicao(4, orientacao);
         
-        System.out.println("O computador definiu a posição que será inserido "
+        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
                 + "o Navio-Tanque!");
         
         /*-----------------------------Cruzador-------------------------------*/
@@ -47,7 +50,7 @@ public class JogadorComputador extends Jogador {
         System.out.println(orientacao);
         posicoesCruzador = lerPosicao(3, orientacao);
         
-        System.out.println("O computador definiu a posição que será inserido "
+        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
                 + "o Cruzador!");
         /*----------------------------Submarino-------------------------------*/
         
@@ -55,7 +58,7 @@ public class JogadorComputador extends Jogador {
         System.out.println(orientacao);
         posicoesSubmarino = lerPosicao(3, orientacao);
         
-        System.out.println("O computador definiu a posição que será inserido "
+        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
                 + "o Submarino!");
         
         /*-----------------------------Destruidor-----------------------------*/
@@ -64,14 +67,16 @@ public class JogadorComputador extends Jogador {
         System.out.println(orientacao);
         posicoesDestruidor = lerPosicao(2, orientacao);
         
-        System.out.println("O computador definiu a posição que será inserido "
+        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
                 + "o Destruidor!");
         
         System.out.println();
         
-        System.out.println("O computador já definiu a disposição de todos os "
-                + "navios, quando concluir a inserção dos seus Navios, digite "
-                + "'s' para que o computador dê o primeiro tiro!");
+        System.out.println("O computador jÃ¡ definiu a disposiÃ§Ã£o de todos os "
+                + "navios, quando concluir a inserÃ§Ã£o dos seus Navios, digite "
+                + "'s' para que o computador dÃª o primeiro tiro!");
+        
+        /*----------------------------------------------------------------------*/
         
         while(!controle) {
             char fimDisposicao = scan.next().charAt(0);
@@ -81,7 +86,7 @@ public class JogadorComputador extends Jogador {
             }
             else {
                 while(fimDisposicao != 's' && fimDisposicao != 'S') {
-                    System.out.println("Letra inválida, digite 's' para "
+                    System.out.println("Letra invÃ¡lida, digite 's' para "
                             + "prosseguir com o jogo!");
                     fimDisposicao = scan.next().charAt(0);
                 }
@@ -146,23 +151,34 @@ public class JogadorComputador extends Jogador {
         int alvosAtingidos = 0;
         
         System.out.println("--------------------------------AGORA O COMPUTADOR "
-                + "IRÁ DEFINIR AS JOGADAS QUE REALIZARÁ PARA TE ATACAR!!!"
+                + "IRÃ� DEFINIR AS JOGADAS QUE REALIZARÃ� PARA TE ATACAR!!!"
                 + "--------------------------------");
         
-        System.out.println("Note que será necessário digitar 's' "
-                + "(no console referente as jogadas do computador) "
-                + "após executar "
-                + "sua jogada para que o computador possa realizar sua jogada!");
+//        System.out.println("Note que serÃ¡ necessÃ¡rio digitar 's' "
+//                + "(no console referente as jogadas do computador) "
+//                + "apÃ³s executar "
+//                + "sua jogada para que o computador possa realizar sua jogada!");
         
         /* 
-        Não fiz nada daqui para baixo
+        NÃ£o fiz nada daqui para baixo
         */
         
         tab.imprimirTabuleiro();
         
         System.out.println();
         
+        
         while(!fim) {
+        	
+        	Arquivo arq = new Arquivo();
+        	try {
+				while(arq.verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
+					
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        	
             perdeu = getArquivo().verificarFim(getArquivo().getPathAdversario());
             
             if(perdeu) {
@@ -173,9 +189,19 @@ public class JogadorComputador extends Jogador {
                 fim = true;
             }
             else {
-                System.out.print("Digite a posição cujo deseja atingir "
+            	            	
+                System.out.print("Digite a posiÃ§Ã£o cujo deseja atingir "
                 +  ": de '[0-9] + [0-9]': ");
-                posicao = scan.next();
+                
+              //AQUI COMEÇA A INTELIGÊNCIA DO PC 
+                int auxPosicao;
+                auxPosicao = gerador.nextInt(10);
+                posicao = Integer.toString(auxPosicao);
+                auxPosicao = gerador.nextInt(10);
+                posicao += Integer.toString(auxPosicao);
+              //AQUI TERMINA A INTELIGÊNICA DO PC  
+                
+                //posicao = scan.next();
                 achou = getArquivo().buscar(getArquivo().getPathAdversario(), posicao);
                 if(achou) {
                     alvosAtingidos++;
@@ -184,15 +210,17 @@ public class JogadorComputador extends Jogador {
                 System.out.println();
                 tab.imprimirTabuleiro();
                 System.out.println();
+                arq.alterarTurno();
+                System.out.println("Aguarde sua vez de jogar.");
             }
         }
         System.out.println();
         if(perdeu) {
-            System.out.println(this.getNome() + ", você foi derrotado!");
+            System.out.println(this.getNome() + ", vocÃª foi derrotado!");
         }
         else {
-            System.out.println("Fim de jogo, parabéns " + this.getNome() + 
-                    ", você venceu!");
+            System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + 
+                    ", vocÃª venceu!");
         }
         
         getArquivo().deletarArquivo();

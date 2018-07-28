@@ -1,4 +1,5 @@
 package poo.projeto;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Jogador {
@@ -9,6 +10,7 @@ public class Jogador {
     private int player;
     private int playerAdvs;
     private Arquivo arq;
+    private Arquivo turno;
     
     public Jogador(int player) {
         this.player = player;
@@ -49,15 +51,15 @@ public class Jogador {
         int gamerTipo;
         
         if(gamer == 1) {
-            System.out.println("-----------------------ESCOLHA DO ADVERSÁRIO!"
+            System.out.println("-----------------------ESCOLHA DO ADVERSÃ�RIO!"
                     + "-----------------------");
             System.out.print("Digite 1 p/ o 'Computador'" +
                 "ou 2 p/ outro 'Adversario': ");
             gamerTipo = scan.nextInt();
       
             while(gamerTipo != 1 && gamerTipo != 2) {
-                System.out.println("Número inválido!");
-                System.out.println("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
+                System.out.println("NÃºmero invÃ¡lido!");
+                System.out.print("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
                 gamerTipo = scan.nextInt();
             }
             
@@ -108,12 +110,14 @@ public class Jogador {
         return arquiv;
     }
     
+    
+    
     public char lerOrientacao() {
         char orientacao;
         orientacao = scan.next().charAt(0);
         while(orientacao != 'h' && orientacao != 'H' 
                 && orientacao != 'v' && orientacao != 'V') {
-            System.out.println("Orientação inválida!");
+            System.out.println("OrientaÃ§Ã£o invÃ¡lida!");
             System.out.print("Digite h p/ 'horizontal' ou v p/ 'vertical': ");
             orientacao = scan.next().charAt(0);
         }
@@ -132,8 +136,8 @@ public class Jogador {
         validaPosicoes = navio.validarPosicoes(posicoes);
         
         while(!validaPosicoes) {
-            System.out.print("A posição digitada é inválida, insira uma nova "
-                    + "posição: de '[0-9] + [0-9]': ");
+            System.out.print("A posiÃ§Ã£o digitada Ã© invÃ¡lida, insira uma nova "
+                    + "posiÃ§Ã£o: de '[0-9] + [0-9]': ");
             posicao = scan.next();
             posicoes = navio.posicoes(posicao);
             validaPosicoes = navio.validarPosicoes(posicoes);
@@ -156,59 +160,59 @@ public class Jogador {
         String[] posicoesSubmarino = new String[3];
         String[] posicoesDestruidor = new String[2];
         
-        System.out.println("-------------------DEFINIÇÃO DA DISPOSIÇÃO DOS "
+        System.out.println("-------------------DEFINIÃ‡ÃƒO DA DISPOSIÃ‡ÃƒO DOS "
                 + "NAVIOS!-------------------");
         
-        /*-------------------------Porta-Aviões-------------------------------*/
+        /*-------------------------Porta-AviÃµes-------------------------------*/
         
-        System.out.print("Digite a orientação cujo deseja inserir "
-                + "o 'Porta-Aviões' [V - vertical] ou [H - horizontal]: ");
+        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
+                + "o 'Porta-AviÃµes' [V - vertical] ou [H - horizontal]: ");
         
         orientacao = lerOrientacao();
         
-        System.out.print("Digite a posição cujo deseja inserir "
-                + "o 'Porta-Aviões' : de '[0-9] + [0-9]': ");
+        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir "
+                + "o 'Porta-AviÃµes' : de '[0-9] + [0-9]': ");
         
         posicoesPortaAvioes = lerPosicao(5, orientacao);
         
         /*-------------------------Navio-Tanque-------------------------------*/
         
-        System.out.print("Digite a orientação cujo deseja inserir "
+        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
                 + "o 'Navio-Tanque' [V - vertical] ou [H - horizontal]: ");
         orientacao = lerOrientacao();
         
-        System.out.print("Digite a posição cujo deseja inserir "
+        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir "
                 + "o 'Navio-Tanque' : de '[0-9] + [0-9]': ");
         
         posicoesNavioTanque = lerPosicao(4, orientacao);
         
         /*-----------------------------Cruzador-------------------------------*/
         
-        System.out.print("Digite a orientação cujo deseja inserir "
+        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
                 + "o 'Cruzador' [V - vertical] ou [H - horizontal]: ");
         orientacao = lerOrientacao();
         
-        System.out.print("Digite a posição cujo deseja inserir "
+        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir "
                 + "o 'Cruzador' : de '[0-9] + [0-9]': ");
         posicoesCruzador = lerPosicao(3, orientacao);
         
         /*----------------------------Submarino-------------------------------*/
         
-        System.out.print("Digite a orientação cujo deseja inserir "
+        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
                 + "o 'Submarino' [V - vertical] ou [H - horizontal]: ");
         orientacao = lerOrientacao();
         
-        System.out.print("Digite a posição cujo deseja inserir "
+        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir "
                 + "o 'Submarino' : de '[0-9] + [0-9]': ");
         posicoesSubmarino = lerPosicao(3, orientacao);
         
         /*-----------------------------Destruidor-----------------------------*/
         
-        System.out.print("Digite a orientação cujo deseja inserir "
+        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
                 + "o 'Destruidor' [V - vertical] ou [H - horizontal]: ");
         orientacao = lerOrientacao();
         
-        System.out.print("Digite a posição cujo deseja inserir "
+        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir "
                 + "o 'Destruidor' : de '[0-9] + [0-9]': ");
         posicoesDestruidor = lerPosicao(2, orientacao);
     }
@@ -229,7 +233,7 @@ public class Jogador {
         }
     }
     
-    public void jogadas(Tabuleiro tab) {
+    public void jogadas(Tabuleiro tab) throws IOException {
         boolean fim, achou, perdeu;
         String posicao;
         perdeu = false;
@@ -237,8 +241,8 @@ public class Jogador {
         achou = false;
         int alvosAtingidos = 0;
         
-        System.out.println("--------------------------------AGORA VOCÊ DEVE "
-                + "DIGITAR AS POSIÇÕES CUJO DESEJA REALIZAR O ATAQUE!!!"
+        System.out.println("--------------------------------AGORA VOCÃŠ DEVE "
+                + "DIGITAR AS POSIÃ‡Ã•ES CUJO DESEJA REALIZAR O ATAQUE!!!"
                 + "--------------------------------");
         System.out.println();
         
@@ -246,37 +250,51 @@ public class Jogador {
         
         System.out.println();
         
+        
+        
+       	System.out.println(arq.verificarTurno());
+        	 
         while(!fim) {
-            perdeu = arq.verificarFim(arq.getPathAdversario());
-            
-            if(perdeu) {
-                fim = true;
-            }
-            else if(alvosAtingidos == 17) {
-                arq.escrever(arq.getPath(), "fim");
-                fim = true;
-            }
-            else {
-                System.out.print("Digite a posição cujo deseja atingir "
-                +  ": de '[0-9] + [0-9]': ");
-                posicao = scan.next();
-                achou = arq.buscar(arq.getPathAdversario(), posicao);
-                if(achou) {
-                    alvosAtingidos++;
-                }
-                buscarPos(tab, posicao, achou);
-                System.out.println();
-                tab.imprimirTabuleiro();
-                System.out.println();
-            }
-        }
-        System.out.println();
+        	
+        	while(arq.verificarTurno().charAt(0) != Integer.toString(this.player).charAt(0)) {
+        		
+        	}
+        	
+        	//while(arq.verificarTurno().charAt(0) == '1' || arq.verificarTurno().charAt(0) == '2') {
+        	
+	            perdeu = arq.verificarFim(arq.getPathAdversario());
+	            if(perdeu) {
+	                fim = true;
+	            }
+	            
+	            else if(alvosAtingidos == 17) {
+	                arq.escrever(arq.getPath(), "fim");
+	                fim = true;
+	                
+	            } else {
+	                System.out.print("Digite a posiÃ§Ã£o cujo deseja atingir "+": de '[0-9] + [0-9]': ");
+	                posicao = scan.next();
+	                achou = arq.buscar(arq.getPathAdversario(), posicao);
+	                if(achou) {
+	                    alvosAtingidos++;
+	                }
+		            buscarPos(tab, posicao, achou);
+		            System.out.println();
+		            tab.imprimirTabuleiro();
+		            System.out.println();
+		            arq.alterarTurno();
+		            System.out.println("Aguarde sua vez de jogar!");
+	            	}
+        	}
+        	System.out.println();
+        //}  
+        
         if(perdeu) {
-            System.out.println(this.getNome() + ", você foi derrotado!");
+            System.out.println(this.getNome() + ", vocÃª foi derrotado!");
         }
         else {
-            System.out.println("Fim de jogo, parabéns " + this.getNome() + 
-                    ", você venceu!");
+            System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + 
+                    ", vocÃª venceu!");
         }
         
         arq.deletarArquivo();

@@ -11,7 +11,7 @@ public class Navio {
     }
     
     public String[] posicoes(String posicaoInicial) {
-        String[] posicao = new String[getTamanho()];
+        String[] posicao = new String[tamanho];
         char primeira, segunda;
 
         primeira = posicaoInicial.charAt(0);
@@ -20,7 +20,7 @@ public class Navio {
 
         if(getOrientacao() == 'h' || getOrientacao() == 'H') {
 
-            for(int i=1; i<getTamanho(); i++) {
+            for(int i=1; i<tamanho; i++) {
                 segunda = (char)(segunda + 1);
                 posicao[i] = String.valueOf(primeira) + String.valueOf(segunda); 
             }
