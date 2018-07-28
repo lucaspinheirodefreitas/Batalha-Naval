@@ -38,8 +38,7 @@ public class Arquivo {
         this.path = path;
     }
     
-<<<<<<< HEAD
-=======
+
     public void criarArquivo(String path)
     {
             try (FileWriter fw = new FileWriter(path, true)) {
@@ -50,7 +49,7 @@ public class Arquivo {
             }
     }
 
->>>>>>> master
+
     public void escrever(String path, String texto)
     {
         try (FileWriter fw = new FileWriter(path, true)) {

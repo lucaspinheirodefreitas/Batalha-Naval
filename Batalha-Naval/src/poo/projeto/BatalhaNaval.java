@@ -11,15 +11,12 @@ public class BatalhaNaval {
         Tabuleiro campoBatalha = new Tabuleiro(13, 13);
         campoBatalha.inicializarTabuleiro();
         campoBatalha.imprimirTabuleiro();
-<<<<<<< HEAD
 
         Arquivo arq = new Arquivo();
         arq.criarControladorTurno();
         
         //inicializa jogadores
-=======
-                
->>>>>>> master
+
         System.out.print("Digite 1 p/ 'Player 1', " + 
                 "2 p/ 'Player 2' " +
                 "ou 3 p/ 'Computador': ");
