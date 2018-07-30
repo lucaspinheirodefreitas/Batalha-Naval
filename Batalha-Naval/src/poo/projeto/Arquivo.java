@@ -167,7 +167,7 @@ public class Arquivo {
             conexao.close();  
         } 
         catch(Exception e) {
-            System.out.println("deu merda");
+            System.out.println("Erro ao Tentar alterar Turno");
         }
     }
 } 
