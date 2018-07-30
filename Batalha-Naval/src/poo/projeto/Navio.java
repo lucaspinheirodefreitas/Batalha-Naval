@@ -41,11 +41,8 @@ public class Navio {
         
         for(int i=0; i<posicoes.length; i++) {
             buscaRepeticao = arq.buscar(arq.getPath(), posicoes[i]);
-            if(buscaRepeticao) {
-                return true;
-            }
+            return buscaRepeticao; 
         }
-        return false;
     }
     
     public boolean validarPosicoes(String[] posicoes) {
