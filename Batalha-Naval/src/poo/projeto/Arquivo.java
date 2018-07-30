@@ -68,7 +68,7 @@ public class Arquivo {
             BufferedReader br = new BufferedReader(fr);
             while (linha != null) {
                 linha = br.readLine();
-                if(linha != null && linha.equals(posicao)) {
+                if(linha.equals(posicao)) {
                     return true;
                 }
             }
