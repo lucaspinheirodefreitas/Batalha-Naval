@@ -2,6 +2,7 @@ package poo.projeto;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class JogadorComputador extends Jogador {
     
@@ -138,14 +139,21 @@ public class JogadorComputador extends Jogador {
         System.out.println();
         return posicoes;
     }  
-    
+    @SuppressWarnings("unchecked")
     @Override
     public void jogadas(Tabuleiro tab) {
-        boolean fim, achou, perdeu;
+		boolean fim, achou, perdeu, acertouH, acertouV, tenta, verifica;
+		ArrayList<String> guardaPosicao = new ArrayList();
         String posicao;
         perdeu = false;
         fim = false;
         achou = false;
+		acertouH = false;
+		acertouV = false;
+		tenta = false;
+		int auxPosicao=0;
+		int auxPosicao2=0;
+		
         int alvosAtingidos = 0;
         
         System.out.println("--------------------------------AGORA O COMPUTADOR "
@@ -192,18 +200,67 @@ public class JogadorComputador extends Jogador {
                 +  ": de '[0-9] + [0-9]': ");
                 
               //AQUI COMEÇA A INTELIGÊNCIA DO PC 
-                int auxPosicao;
-                auxPosicao = gerador.nextInt(10);
+                				
+				
+				if (acertouH){
+					
+					auxPosicao = auxPosicao;
+					posicao = Integer.toString(auxPosicao);
+					auxPosicao2 = auxPosicao2+1;
+					posicao += Integer.toString(auxPosicao2);
+					guardaPosicao.add(posicao);
+					System.out.println("la");
+					tenta = true;
+				} else if(acertouV){
+					System.out.println("aqui");
+					auxPosicao = auxPosicao+1;
+					posicao = Integer.toString(auxPosicao);
+					auxPosicao2 = auxPosicao2-1;
+					posicao += Integer.toString(auxPosicao2);
+					guardaPosicao.add(posicao);
+				}
+				else{
+                /*auxPosicao = gerador.nextInt(10);
                 posicao = Integer.toString(auxPosicao);
-                auxPosicao = gerador.nextInt(10);
-                posicao += Integer.toString(auxPosicao);
+                auxPosicao2 = gerador.nextInt(10);
+                posicao += Integer.toString(auxPosicao2);
+				guardaPosicao.add(posicao);*/
+					do {
+						
+						auxPosicao = gerador.nextInt(10);
+						posicao = Integer.toString(auxPosicao);
+						auxPosicao2 = gerador.nextInt(10);
+						posicao += Integer.toString(auxPosicao2);
+						System.out.println("normal");
+						if (guardaPosicao.contains(posicao)){
+							verifica = true;
+							guardaPosicao.add(posicao);
+						}
+						
+						else {
+							verifica=false;
+						}
+					}while (verifica);
+						
+				}
+				guardaPosicao.add(posicao);
               //AQUI TERMINA A INTELIGÊNICA DO PC  
                 
                 //posicao = scan.next();
                 achou = getArquivo().buscar(getArquivo().getPathAdversario(), posicao);
                 if(achou) {
                     alvosAtingidos++;
-                }
+					acertouH = true;
+                }else if(tenta){
+					acertouH = false;
+					acertouV=true;
+					tenta = false;
+				 }  
+				else{
+					acertouH = false;
+					acertouV = false;
+					
+				}
                 buscarPos(tab, posicao, achou);
                 System.out.println();
                 tab.imprimirTabuleiro();
