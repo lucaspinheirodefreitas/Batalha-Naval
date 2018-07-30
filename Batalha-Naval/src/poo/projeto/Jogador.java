@@ -256,10 +256,12 @@ public class Jogador {
 
             perdeu = arq.verificarFim(arq.getPathAdversario());
             if (perdeu) {
+                System.out.println(this.getNome() + ", vocÃª foi derrotado!");
                 fim = true;
             }
 
             else if (alvosAtingidos == 17) {
+                System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + ", vocÃª venceu!");
                 arq.escrever(arq.getPath(), "fim");
                 fim = true;
             } 
@@ -279,12 +281,6 @@ public class Jogador {
             }
         }
         System.out.println();
-        if (perdeu) {
-            System.out.println(this.getNome() + ", vocÃª foi derrotado!");
-        } 
-        else {
-            System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + ", vocÃª venceu!");
-        }
         arq.deletarArquivo();
         System.out.println();
     }
