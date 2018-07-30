@@ -45,10 +45,8 @@ public class Navio {
                 return true;
             }
         }
-        
         return false;
     }
-       
     
     public boolean validarPosicoes(String[] posicoes) {
         char linha, coluna;
@@ -84,5 +82,4 @@ public class Navio {
     public void setOrientacao(char orientacao) {
         this.orientacao = orientacao;
     }
-    
 }

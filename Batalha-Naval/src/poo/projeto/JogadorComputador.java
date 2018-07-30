@@ -112,7 +112,7 @@ public class JogadorComputador extends Jogador {
         String [] posicoes;
         String posicao;
         
-        super.getArquivo().criarArquivo(super.getArquivo().getPath());
+        super.getArq().criarArquivo(super.getArq().getPath());
         auxPosicao = gerador.nextInt(10);
         posicao = Integer.toString(auxPosicao);
         auxPosicao = gerador.nextInt(10);
@@ -121,7 +121,7 @@ public class JogadorComputador extends Jogador {
         Navio navio = new Navio(tamanho, orientacao);
         posicoes = navio.posicoes(posicao);
         validaPosicoes = navio.validarPosicoes(posicoes);
-        verificaRepeticao = navio.verificaRepeticao(super.getArquivo(), posicoes);
+        verificaRepeticao = navio.verificaRepeticao(super.getArq(), posicoes);
         
         while(verificaRepeticao || !validaPosicoes) {
             auxPosicao = gerador.nextInt(10);
@@ -130,40 +130,35 @@ public class JogadorComputador extends Jogador {
             posicao += Integer.toString(auxPosicao);
             posicoes = navio.posicoes(posicao);
             validaPosicoes = navio.validarPosicoes(posicoes);
-            verificaRepeticao = navio.verificaRepeticao(super.getArquivo(), posicoes);
+            verificaRepeticao = navio.verificaRepeticao(super.getArq(), posicoes);
         }
         
         for(int i=0; i<posicoes.length; i++){
-            super.getArquivo().escrever(super.getArquivo().getPath(), posicoes[i]);
+            super.getArq().escrever(super.getArq().getPath(), posicoes[i]);
         }
         System.out.println();
         return posicoes;
     }  
-    @SuppressWarnings("unchecked")
+    
     @Override
     public void jogadas(Tabuleiro tab) {
-		boolean fim, achou, perdeu, acertouH, acertouV, tenta, verifica;
-		ArrayList<String> guardaPosicao = new ArrayList();
+        boolean fim, achou, perdeu, acertouH, acertouV, tenta, verifica;
+        ArrayList<String> guardaPosicao = new ArrayList();
         String posicao;
         perdeu = false;
         fim = false;
         achou = false;
-		acertouH = false;
-		acertouV = false;
-		tenta = false;
-		int auxPosicao=0;
-		int auxPosicao2=0;
-		
+        acertouH = false;
+        acertouV = false;
+        tenta = false;
+        int auxPosicao=0;
+        int auxPosicao2=0;
+
         int alvosAtingidos = 0;
         
         System.out.println("--------------------------------AGORA O COMPUTADOR "
                 + "IRÃ� DEFINIR AS JOGADAS QUE REALIZARÃ� PARA TE ATACAR!!!"
                 + "--------------------------------");
-        
-//        System.out.println("Note que serÃ¡ necessÃ¡rio digitar 's' "
-//                + "(no console referente as jogadas do computador) "
-//                + "apÃ³s executar "
-//                + "sua jogada para que o computador possa realizar sua jogada!");
         
         /* 
         NÃ£o fiz nada daqui para baixo
@@ -175,111 +170,104 @@ public class JogadorComputador extends Jogador {
         
         
         while(!fim) {
-        	
-        	Arquivo arq = new Arquivo();
-        	try {
-				while(arq.verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        	
-            perdeu = getArquivo().verificarFim(getArquivo().getPathAdversario());
-            
+            Arquivo arq = new Arquivo();
+            try {
+                while(arq.verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
+                
+                }
+            } 
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+      
+            perdeu = getArq().verificarFim(getArq().getPathAdversario());
+
             if(perdeu) {
                 fim = true;
             }
             else if(alvosAtingidos == 17) {
-                getArquivo().escrever(getArquivo().getPath(), "fim");
+                getArq().escrever(getArq().getPath(), "fim");
                 fim = true;
             }
             else {
-            	            	
                 System.out.print("Digite a posiÃ§Ã£o cujo deseja atingir "
                 +  ": de '[0-9] + [0-9]': ");
-                
               //AQUI COMEÇA A INTELIGÊNCIA DO PC 
-                				
-				
-				if (acertouH){
-					
-					auxPosicao = auxPosicao;
-					posicao = Integer.toString(auxPosicao);
-					auxPosicao2 = auxPosicao2+1;
-					posicao += Integer.toString(auxPosicao2);
-					guardaPosicao.add(posicao);
-					System.out.println("la");
-					tenta = true;
-				} else if(acertouV){
-					System.out.println("aqui");
-					auxPosicao = auxPosicao+1;
-					posicao = Integer.toString(auxPosicao);
-					auxPosicao2 = auxPosicao2-1;
-					posicao += Integer.toString(auxPosicao2);
-					guardaPosicao.add(posicao);
-				}
-				else{
-                /*auxPosicao = gerador.nextInt(10);
+            if (acertouH) {
+                auxPosicao = auxPosicao;
+                posicao = Integer.toString(auxPosicao);
+                auxPosicao2 = auxPosicao2+1;
+                posicao += Integer.toString(auxPosicao2);
+                guardaPosicao.add(posicao);
+                System.out.println("la");
+                tenta = true;
+            } else if(acertouV) {
+                System.out.println("aqui");
+                auxPosicao = auxPosicao+1;
+                posicao = Integer.toString(auxPosicao);
+                auxPosicao2 = auxPosicao2-1;
+                posicao += Integer.toString(auxPosicao2);
+                guardaPosicao.add(posicao);
+            }
+            else {
+        /*auxPosicao = gerador.nextInt(10);
+        posicao = Integer.toString(auxPosicao);
+        auxPosicao2 = gerador.nextInt(10);
+        posicao += Integer.toString(auxPosicao2);
+                guardaPosicao.add(posicao);*/
+            do {
+                auxPosicao = gerador.nextInt(10);
                 posicao = Integer.toString(auxPosicao);
                 auxPosicao2 = gerador.nextInt(10);
                 posicao += Integer.toString(auxPosicao2);
-				guardaPosicao.add(posicao);*/
-					do {
-						
-						auxPosicao = gerador.nextInt(10);
-						posicao = Integer.toString(auxPosicao);
-						auxPosicao2 = gerador.nextInt(10);
-						posicao += Integer.toString(auxPosicao2);
-						System.out.println("normal");
-						if (guardaPosicao.contains(posicao)){
-							verifica = true;
-							guardaPosicao.add(posicao);
-						}
-						
-						else {
-							verifica=false;
-						}
-					}while (verifica);
-						
-				}
-				guardaPosicao.add(posicao);
-              //AQUI TERMINA A INTELIGÊNICA DO PC  
-                
-                //posicao = scan.next();
-                achou = getArquivo().buscar(getArquivo().getPathAdversario(), posicao);
-                if(achou) {
-                    alvosAtingidos++;
-					acertouH = true;
-                }else if(tenta){
-					acertouH = false;
-					acertouV=true;
-					tenta = false;
-				 }  
-				else{
-					acertouH = false;
-					acertouV = false;
-					
-				}
-                buscarPos(tab, posicao, achou);
-                System.out.println();
-                tab.imprimirTabuleiro();
-                System.out.println();
-                arq.alterarTurno();
-                System.out.println("Aguarde sua vez de jogar.");
-            }
+                System.out.println("normal");
+                if (guardaPosicao.contains(posicao)){
+                        verifica = true;
+                        guardaPosicao.add(posicao);
+                }
+
+                else {
+                        verifica=false;
+                }
+            } while (verifica);
         }
-        System.out.println();
-        if(perdeu) {
-            System.out.println(this.getNome() + ", vocÃª foi derrotado!");
+        guardaPosicao.add(posicao);
+        //AQUI TERMINA A INTELIGÊNICA DO PC  
+
+        achou = getArq().buscar(getArq().getPathAdversario(), posicao);
+        
+        if(achou) {
+            alvosAtingidos++;
+                                acertouH = true;
         }
+        else if(tenta) {
+            acertouH = false;
+            acertouV=true;
+            tenta = false;
+        }  
         else {
-            System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + 
-                    ", vocÃª venceu!");
+            acertouH = false;
+            acertouV = false;
         }
-        
-        getArquivo().deletarArquivo();
-        
+        buscarPos(tab, posicao, achou);
         System.out.println();
+        tab.imprimirTabuleiro();
+        System.out.println();
+        arq.alterarTurno();
+        System.out.println("Aguarde sua vez de jogar.");
+        }
+    }
+    System.out.println();
+    if(perdeu) {
+        System.out.println(this.getNome() + ", vocÃª foi derrotado!");
+    }
+    else {
+        System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + 
+                ", vocÃª venceu!");
+    }
+
+    getArq().deletarArquivo();
+
+    System.out.println();
     }
 }
