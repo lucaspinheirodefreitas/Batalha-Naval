@@ -171,11 +171,6 @@ public class JogadorComputador extends Jogador {
                 guardaPosicao.add(posicao);
                 }
                 else {
-        /*auxPosicao = gerador.nextInt(10);
-        posicao = Integer.toString(auxPosicao);
-        auxPosicao2 = gerador.nextInt(10);
-        posicao += Integer.toString(auxPosicao2);
-                guardaPosicao.add(posicao);*/
                     do {
                         auxPosicao = gerador.nextInt(10);
                         posicao = Integer.toString(auxPosicao);
@@ -215,7 +210,6 @@ public class JogadorComputador extends Jogador {
             tab.imprimirTabuleiro();
             System.out.println();
             getTurno().alterarTurno();
-            //System.out.println("Aguarde sua vez de jogar.");
         }
     }
     System.out.println();
@@ -226,9 +220,7 @@ public class JogadorComputador extends Jogador {
         System.out.println("Fim de jogo, parabéns " + this.getNome() + 
                 ", você venceu!");
     }
-
     getArq().deletarArquivo();
-
     System.out.println();
     }
 }
