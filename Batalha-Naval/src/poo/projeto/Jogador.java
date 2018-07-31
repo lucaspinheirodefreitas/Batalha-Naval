@@ -233,7 +233,7 @@ public class Jogador {
         while (!fim) {
 
             while (turno.verificarTurno().charAt(0) != Integer.toString(this.player).charAt(0)) {
-                Thread.sleep(1000);
+                Thread.sleep(700);
             }
 
             perdeu = arq.verificarFim(arq.getPathAdversario());

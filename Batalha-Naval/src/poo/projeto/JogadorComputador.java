@@ -140,7 +140,7 @@ public class JogadorComputador extends Jogador {
         while(!fim) {
             
             while(getTurno().verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
-                Thread.sleep(1000);
+                Thread.sleep(700);
             }
             perdeu = getArq().verificarFim(getArq().getPathAdversario());
             if(perdeu) {

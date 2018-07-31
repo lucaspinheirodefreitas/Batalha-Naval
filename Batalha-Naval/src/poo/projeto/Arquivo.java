@@ -100,12 +100,12 @@ public class Arquivo {
     public void aguardaInsercao() throws InterruptedException {
         boolean controle = false;
         File file = new File(pathAdversario);
-        
-        System.out.println("Aguarde, o adversário ainda não definiu "
+        if(!file.exists()) {
+            System.out.println("Aguarde, o adversário ainda não definiu "
                 + "a disposição dos seus navios.");
-        System.out.println();
+        }
         while(!controle) {
-            Thread.sleep(1000);
+            Thread.sleep(700);
             if(file.exists() && contaLinhas() == 22) {
                 controle = true;
             }
