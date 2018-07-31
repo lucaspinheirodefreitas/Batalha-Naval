@@ -57,35 +57,3 @@ public class Tabuleiro {
     }
 
 }
-
-/* A seguir o tabuleiro com as linhas descritas por letras, fiz uma pequena alteração pra não ter que fazer DE-PARA de letra pra número no metodo buscarPos do jogador;
-Mas é possivel implementar as condições se der tempo para utilizar o tabuleiro com letras e colunas com numeros
-
-
-public void inicializarTabuleiro() {
-        for (int i=0; i<campo.length; i++) {
-            for (int j=0; j<campo[0].length; j++) {
-                
-                if(i == 0 && j == 0) {
-                    campo[i][j] = new Celula(' ');
-                }
-                else {
-                    if(i == 0 && j>1 && j<campo[0].length-1) {
-                        campo[i][j] = new Celula((char)(numCol+j-3));
-                    }
-                    else {
-                        if(i>1 && j == 0 && i<campo.length-1) {
-                            campo[i][j] = new Celula((char)(numLin + (i-2)));
-                        }
-                        else if (i == 1 || i == campo.length-1)
-                            campo[i][j] = new Celula('=');
-                        else if(j == 1 || j == campo[0].length-1)
-                            campo[i][j] = new Celula('|');
-                        else
-                            campo[i][j] = new Celula('o');
-                        }    
-                    }
-            }
-        }
-    }
-*/
