@@ -11,15 +11,20 @@ public class Jogador {
     private int player;
     private final int playerAdvs;
     private Arquivo arq;
-    private Arquivo turno;
+    private final Arquivo turno;
 
-    public Jogador(int player) {
+    public Jogador(int player, Arquivo turno) {
         this.player = player;
         this.nome = lerNome(player);
         this.playerAdvs = verificaGamerTipo(this.player);
         arq = gerArquivo(player, playerAdvs);
+        this.turno = turno;
     }
 
+    public Arquivo getTurno() {
+        return turno;
+    }
+    
     public int getPlayerAdvs() {
         return playerAdvs;
     }
@@ -52,13 +57,16 @@ public class Jogador {
         int gamerTipo;
 
         if (gamer == 1) {
-            System.out.println("-----------------------ESCOLHA DO ADVERSÃ�RIO!" + "-----------------------");
-            System.out.print("Digite 1 p/ o 'Computador'" + "ou 2 p/ outro 'Adversario': ");
+            System.out.println("-----------------------ESCOLHA DO ADVERSÁRIO!" 
+                    + "-----------------------");
+            System.out.print("Digite 1 para jogar contra o 'Computador' "
+                        + "ou 2 para jogar contra outro 'Adversario': ");
             gamerTipo = scan.nextInt();
 
             while (gamerTipo != 1 && gamerTipo != 2) {
-                System.out.println("NÃºmero invÃ¡lido!");
-                System.out.print("Digite 1 p/ 'Computador' ou 2 p/ 'Adversario': ");
+                System.out.println("Número inválido!");
+                System.out.print("Digite 1 para jogar contra o 'Computador' "
+                        + "ou 2 para jogar contra outro 'Adversario': ");
                 gamerTipo = scan.nextInt();
             }
 
@@ -107,19 +115,8 @@ public class Jogador {
 
         return arquiv;
     }
-
-    public char lerOrientacao() {
-        char orientacao;
-        orientacao = scan.next().charAt(0);
-        while (orientacao != 'h' && orientacao != 'H' && orientacao != 'v' && orientacao != 'V') {
-            System.out.println("OrientaÃ§Ã£o invÃ¡lida!");
-            System.out.print("Digite h p/ 'horizontal' ou v p/ 'vertical': ");
-            orientacao = scan.next().charAt(0);
-        }
-        return orientacao;
-    }
-
-    public String[] lerPosicao(int tamanho, char orientacao) {
+    
+    public void lerPosicao(int tamanho, char orientacao) throws InterruptedException {
         String[] posicoes;
         String posicao;
         boolean validaPosicoes, verificaRepeticao;
@@ -147,71 +144,55 @@ public class Jogador {
             verificaRepeticao = navio.verificaRepeticao(arq, posicoes);
         }
         
-        for (int i = 0; i < posicoes.length; i++) {
+        for (int i=0; i < posicoes.length; i++) {
             arq.escrever(arq.getPath(), posicoes[i]);
         }
         System.out.println();
-        return posicoes;
     }
 
-    public void disporNavios() {
+    public void disporNavios() throws InterruptedException {
         char orientacao = ' ';
-        String posicao;
-        String[] posicoesPortaAvioes = new String[5];
-        String[] posicoesNavioTanque = new String[4];
-        String[] posicoesCruzador = new String[3];
-        String[] posicoesSubmarino = new String[3];
-        String[] posicoesDestruidor = new String[2];
-
-        System.out.println("-------------------DEFINIÃ‡ÃƒO DA DISPOSIÃ‡ÃƒO DOS " + "NAVIOS!-------------------");
+        System.out.println("-------------------DEFINIÇÃO DA DISPOSIÇÃO DOS " 
+                + "NAVIOS!-------------------");
 
         /*-------------------------Porta-AviÃµes-------------------------------*/
 
-        System.out.print("Digite a orientaÃ§Ã£o cujo deseja inserir "
-                        + "o 'Porta-AviÃµes' [V - vertical] ou [H - horizontal]: ");
-
-        orientacao = lerOrientacao();
-
-        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir " + "o 'Porta-AviÃµes' : de '[0-9] + [0-9]': ");
-
-        posicoesPortaAvioes = lerPosicao(5, orientacao);
+        PortaAvioes portAvioes = new PortaAvioes(5);
+        orientacao = portAvioes.orientacao();
+        portAvioes.setOrientacao(orientacao);
+        portAvioes.posicaoIni();
+        lerPosicao(portAvioes.getTamanho(), orientacao);
 
         /*-------------------------Navio-Tanque-------------------------------*/
 
-        System.out.print(
-                        "Digite a orientaÃ§Ã£o cujo deseja inserir " + "o 'Navio-Tanque' [V - vertical] ou [H - horizontal]: ");
-        orientacao = lerOrientacao();
-
-        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir " + "o 'Navio-Tanque' : de '[0-9] + [0-9]': ");
-
-        posicoesNavioTanque = lerPosicao(4, orientacao);
+        NavioTanque navioTanque = new NavioTanque(4);
+        orientacao = navioTanque.orientacao();
+        navioTanque.setOrientacao(orientacao);
+        navioTanque.posicaoIni();
+        lerPosicao(navioTanque.getTamanho(), orientacao);
 
         /*-----------------------------Cruzador-------------------------------*/
-
-        System.out.print(
-                        "Digite a orientaÃ§Ã£o cujo deseja inserir " + "o 'Cruzador' [V - vertical] ou [H - horizontal]: ");
-        orientacao = lerOrientacao();
-
-        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir " + "o 'Cruzador' : de '[0-9] + [0-9]': ");
-        posicoesCruzador = lerPosicao(3, orientacao);
+        Cruzador cruzador = new Cruzador(3);
+        orientacao = cruzador.orientacao();
+        cruzador.setOrientacao(orientacao);
+        cruzador.posicaoIni();
+        lerPosicao(cruzador.getTamanho(), orientacao);
 
         /*----------------------------Submarino-------------------------------*/
 
-        System.out.print(
-                        "Digite a orientaÃ§Ã£o cujo deseja inserir " + "o 'Submarino' [V - vertical] ou [H - horizontal]: ");
-        orientacao = lerOrientacao();
-
-        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir " + "o 'Submarino' : de '[0-9] + [0-9]': ");
-        posicoesSubmarino = lerPosicao(3, orientacao);
+        Submarino submarino = new Submarino(3);
+        orientacao = submarino.orientacao();
+        submarino.setOrientacao(orientacao);
+        submarino.posicaoIni();
+        lerPosicao(submarino.getTamanho(), orientacao);
 
         /*-----------------------------Destruidor-----------------------------*/
 
-        System.out.print(
-                        "Digite a orientaÃ§Ã£o cujo deseja inserir " + "o 'Destruidor' [V - vertical] ou [H - horizontal]: ");
-        orientacao = lerOrientacao();
-
-        System.out.print("Digite a posiÃ§Ã£o cujo deseja inserir " + "o 'Destruidor' : de '[0-9] + [0-9]': ");
-        posicoesDestruidor = lerPosicao(2, orientacao);
+        Destruidor destruidor = new Destruidor(2);
+        orientacao = destruidor.orientacao();
+        destruidor.setOrientacao(orientacao);
+        destruidor.posicaoIni();
+        lerPosicao(destruidor.getTamanho(), orientacao);
     }
 
     public void buscarPos(Tabuleiro tab, String jogada, boolean achou) {
@@ -230,7 +211,7 @@ public class Jogador {
         }
     }
 
-    public void jogadas(Tabuleiro tab) throws IOException {
+    public void jogadas(Tabuleiro tab) throws IOException, InterruptedException {
         boolean fim, achou, perdeu;
         String posicao;
         perdeu = false;
@@ -238,35 +219,37 @@ public class Jogador {
         achou = false;
         int alvosAtingidos = 0;
 
-        System.out.println("--------------------------------AGORA VOCÃŠ DEVE "
-                        + "DIGITAR AS POSIÃ‡Ã•ES CUJO DESEJA REALIZAR O ATAQUE!!!" + "--------------------------------");
+        System.out.println("--------------------------------AGORA VOCÊ DEVE "
+                        + "DIGITAR AS POSIÇÕES CUJO DESEJA REALIZAR O ATAQUE!!!" 
+                + "--------------------------------");
         System.out.println();
 
         tab.imprimirTabuleiro();
 
         System.out.println();
-
-        System.out.println(arq.verificarTurno());
-
+        
+        arq.aguardaInsercao();
+        
         while (!fim) {
 
-            while (arq.verificarTurno().charAt(0) != Integer.toString(this.player).charAt(0)) {
-
+            while (turno.verificarTurno().charAt(0) != Integer.toString(this.player).charAt(0)) {
+                Thread.sleep(1000);
             }
 
             perdeu = arq.verificarFim(arq.getPathAdversario());
             if (perdeu) {
-                System.out.println(this.getNome() + ", vocÃª foi derrotado!");
+                System.out.println(this.getNome() + ", você foi derrotado!");
                 fim = true;
             }
-
             else if (alvosAtingidos == 17) {
-                System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + ", vocÃª venceu!");
+                System.out.println("Fim de jogo, parabéns " + this.getNome() + ", você venceu!");
                 arq.escrever(arq.getPath(), "fim");
                 fim = true;
+                turno.alterarTurno();
             } 
             else {
-                System.out.print("Digite a posiÃ§Ã£o cujo deseja atingir " + ": de '[0-9] + [0-9]': ");
+                System.out.print("Digite a posição cujo deseja atingir " 
+                        + ": de '[0-9] + [0-9]': ");
                 posicao = scan.next();
                 achou = arq.buscar(arq.getPathAdversario(), posicao);
                 if (achou) {
@@ -276,8 +259,8 @@ public class Jogador {
                 System.out.println();
                 tab.imprimirTabuleiro();
                 System.out.println();
-                arq.alterarTurno();
-                System.out.println("Aguarde sua vez de jogar!");
+                turno.alterarTurno();
+                //System.out.println("Aguarde sua vez de jogar!");
             }
         }
         System.out.println();
