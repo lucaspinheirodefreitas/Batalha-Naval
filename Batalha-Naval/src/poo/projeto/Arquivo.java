@@ -25,6 +25,10 @@ public class Arquivo {
         this.pathControladorDeTurno = "ControladorDeTurno.txt";
     }
 
+    public String getPathControladorDeTurno() {
+        return pathControladorDeTurno;
+    }
+    
     public String getPathAdversario() {
         return pathAdversario;
     }
@@ -36,12 +40,17 @@ public class Arquivo {
     public void setPath(String path) {
         this.path = path;
     }
-    
 
+    public void setPathAdversario(String pathAdversario) {
+        this.pathAdversario = pathAdversario;
+    }
+    
     public void criarArquivo(String path)
     {
         try (FileWriter fw = new FileWriter(path, true)) {
             BufferedWriter conexao = new BufferedWriter(fw);
+            conexao.newLine();
+            conexao.close();
         } 
         catch(Exception e) {
             System.out.println("problema ao gerar arquivo!");
@@ -62,7 +71,7 @@ public class Arquivo {
         }
     }  
     
-    public boolean buscar(String path, String posicao) {
+    public boolean buscar(String path, String posicao) throws InterruptedException {
         String linha = " ";
         try (FileReader fr = new FileReader(path)) {
             BufferedReader br = new BufferedReader(fr);
@@ -82,20 +91,48 @@ public class Arquivo {
                 System.out.println("Erro na leitura");
             }
             else {
-                System.out.println("Aguarde, o adversário ainda não definiu "
-                        + "a disposição dos seus navios.");
-                System.out.println();
-                while(!controle) {
-                    if(file.exists()) {
-                        controle = true;
-                    }
-                }
+                aguardaInsercao();
             }
         }
         return false;
     }
     
-    public boolean verificarFim(String path) {
+    public void aguardaInsercao() throws InterruptedException {
+        boolean controle = false;
+        File file = new File(pathAdversario);
+        
+        System.out.println("Aguarde, o adversário ainda não definiu "
+                + "a disposição dos seus navios.");
+        System.out.println();
+        while(!controle) {
+            Thread.sleep(1000);
+            if(file.exists() && contaLinhas() == 22) {
+                controle = true;
+            }
+        }
+    }
+    
+    public int contaLinhas() {
+        int cont = 0;
+        String linha = " ";
+        try (FileReader fr = new FileReader(pathAdversario)) {
+            BufferedReader br = new BufferedReader(fr);
+            while (linha != null) {
+                linha = br.readLine();
+                if(linha != null) {
+                    cont++;
+                }
+            }
+        } 
+        catch(IOException e) {
+
+            System.out.println("problema com o contador");
+            System.out.println();
+        }
+        return cont;
+    }
+    
+    public boolean verificarFim(String path) throws InterruptedException {
         boolean achou = buscar(path, "fim");
         
         return achou;
@@ -110,22 +147,24 @@ public class Arquivo {
     }
     
     public void criarControladorTurno() throws IOException {
-    	FileWriter fw = new FileWriter(pathControladorDeTurno, true);
-        try (BufferedWriter conexao = new BufferedWriter(fw)) {
-            conexao.write("1");
+    	try (FileWriter fw = new FileWriter(pathControladorDeTurno, true)) {
+            BufferedWriter conexao = new BufferedWriter(fw);
             conexao.newLine();
+            conexao.close();
+        } 
+        catch(Exception e) {
+            System.out.println("problema ao gerar arquivo controle de turno!");
         }
     }
     
     public String verificarTurno() throws IOException {
-    	
     	String vez = "";
+        String line;
         try {
             InputStream is = new FileInputStream(pathControladorDeTurno);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
-
-            String line = "";
+            line = " ";
             while (line != null) {
                 line = br.readLine();
                 if (line != null) {
@@ -135,30 +174,25 @@ public class Arquivo {
             br.close();
         } 
         catch (IOException e) {
-            e.printStackTrace();
+        
         }
         return vez;
     }
 
     public void alterarTurno() {
-        String atual = " ";
+        String atual = null;
         char vez = ' ';
-
         try {
             atual = verificarTurno();
         } 
         catch (IOException e1) {
-            e1.printStackTrace();
+            System.out.println("Problema ao atribuir o turno atual");
         }
-        try {
-            if (verificarTurno().charAt(0) == '3')
-                vez = '1';
-            else
-                vez = pathAdversario.charAt(1);
-        } 
-        catch (IOException e1) {
-            e1.printStackTrace();
+        if (atual != null && atual.charAt(0) != '3') {
+            vez = pathAdversario.charAt(1);
         }
+        else
+            vez = '1';
         try {
             FileWriter fw = new FileWriter(pathControladorDeTurno, true);
             BufferedWriter conexao = new BufferedWriter(fw);
@@ -167,7 +201,7 @@ public class Arquivo {
             conexao.close();  
         } 
         catch(Exception e) {
-            System.out.println("deu merda");
+            System.out.println("Inconsistência no controle de turnos");
         }
     }
 } 

@@ -8,93 +8,65 @@ public class JogadorComputador extends Jogador {
     
     Random gerador = new Random();
     
-    public JogadorComputador(int player) {
-       super(player);
+    public JogadorComputador(int player, Arquivo turno) {
+       super(player, turno);
        
     }
     
     @Override
-    public void disporNavios() {
+    public void disporNavios() throws InterruptedException {
         char orientacao;
         boolean controle = false;
-        String posicao;
-        String[] posicoesPortaAvioes = new String[5];
-        String[] posicoesNavioTanque = new String[4];
-        String[] posicoesCruzador = new String[3];
-        String[] posicoesSubmarino = new String[3];
-        String[] posicoesDestruidor = new String[2];
         
-        
-        System.out.println("--------------------DEFINIÃ‡ÃƒO DA DISPOSIÃ‡ÃƒO DOS "
+        System.out.println("--------------------DEFINIÇÃO DA DISPOSIÇÃOO DOS "
                 + "NAVIOS!-------------------");
         /*-------------------------Porta-AviÃµes-------------------------------*/
         
         orientacao = lerOrientacao();
-        posicoesPortaAvioes = lerPosicao(5, orientacao);
+        lerPosicao(5, orientacao);
         
-        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
-                + "o Porta-AviÃµes!");
+        System.out.println("O computador definiu a posição que será inserido "
+                + "o Porta-Aviões!");
         
         /*-------------------------Navio-Tanque-------------------------------*/
         
         orientacao = lerOrientacao();
-        posicoesNavioTanque = lerPosicao(4, orientacao);
+        lerPosicao(4, orientacao);
         
-        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
+        System.out.println("O computador definiu a posição que será inserido "
                 + "o Navio-Tanque!");
         
         /*-----------------------------Cruzador-------------------------------*/
         
         orientacao = lerOrientacao();
-        posicoesCruzador = lerPosicao(3, orientacao);
+        lerPosicao(3, orientacao);
         
-        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
+        System.out.println("O computador definiu a posição que será inserido "
                 + "o Cruzador!");
         /*----------------------------Submarino-------------------------------*/
         
         orientacao = lerOrientacao();
-        posicoesSubmarino = lerPosicao(3, orientacao);
+        lerPosicao(3, orientacao);
         
-        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
+        System.out.println("O computador definiu a posição que será inserido "
                 + "o Submarino!");
         
         /*-----------------------------Destruidor-----------------------------*/
         
         orientacao = lerOrientacao();
-        posicoesDestruidor = lerPosicao(2, orientacao);
+        lerPosicao(2, orientacao);
         
-        System.out.println("O computador definiu a posiÃ§Ã£o que serÃ¡ inserido "
+        System.out.println("O computador definiu a posição que será inserido "
                 + "o Destruidor!");
         
         System.out.println();
         
-        System.out.println("O computador jÃ¡ definiu a disposiÃ§Ã£o de todos os "
-                + "navios, quando concluir a inserÃ§Ã£o dos seus Navios, digite "
-                + "'s' para que o computador dÃª o primeiro tiro!");
-        
-        /*----------------------------------------------------------------------*/
-        
-        while(!controle) {
-            char fimDisposicao = scan.next().charAt(0);
-            
-            if(fimDisposicao == 's' || fimDisposicao == 'S') {
-                controle = true;
-            }
-            else {
-                while(fimDisposicao != 's' && fimDisposicao != 'S') {
-                    System.out.println("Letra invÃ¡lida, digite 's' para "
-                            + "prosseguir com o jogo!");
-                    fimDisposicao = scan.next().charAt(0);
-                }
-                controle = true;
-            }
-        }
+        System.out.println("O computador já definiu a disposição de todos os "
+                + "navios!");
     }
     
-    @Override
     public char lerOrientacao() {
         int orientacao;
-        //gera numeros aleatorios entre 0 e (n-1), neste caso (n = 2)
         orientacao = gerador.nextInt(2);
         
         if(orientacao == 0) {
@@ -106,7 +78,7 @@ public class JogadorComputador extends Jogador {
     }
     
     @Override
-    public String[] lerPosicao(int tamanho, char orientacao) {
+    public void lerPosicao(int tamanho, char orientacao) throws InterruptedException {
         boolean validaPosicoes, verificaRepeticao;
         int auxPosicao;
         String [] posicoes;
@@ -137,11 +109,10 @@ public class JogadorComputador extends Jogador {
             super.getArq().escrever(super.getArq().getPath(), posicoes[i]);
         }
         System.out.println();
-        return posicoes;
     }  
-    
+    @SuppressWarnings("unchecked")
     @Override
-    public void jogadas(Tabuleiro tab) {
+    public void jogadas(Tabuleiro tab) throws InterruptedException, IOException {
         boolean fim, achou, perdeu, acertouH, acertouV, tenta, verifica;
         ArrayList<String> guardaPosicao = new ArrayList();
         String posicao;
@@ -157,113 +128,105 @@ public class JogadorComputador extends Jogador {
         int alvosAtingidos = 0;
         
         System.out.println("--------------------------------AGORA O COMPUTADOR "
-                + "IRÃ� DEFINIR AS JOGADAS QUE REALIZARÃ� PARA TE ATACAR!!!"
+                + "IRÁ DEFINIR AS JOGADAS QUE REALIZARÁ PARA TE ATACAR!!!"
                 + "--------------------------------");
-        
-        /* 
-        NÃ£o fiz nada daqui para baixo
-        */
         
         tab.imprimirTabuleiro();
         
         System.out.println();
         
+        getArq().aguardaInsercao();
         
         while(!fim) {
-            Arquivo arq = new Arquivo();
-            try {
-                while(arq.verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
-                
-                }
-            } 
-            catch (IOException e) {
-                e.printStackTrace();
+            
+            while(getTurno().verificarTurno().charAt(0) != Integer.toString(this.getPlayer()).charAt(0)) {
+                Thread.sleep(1000);
             }
-      
             perdeu = getArq().verificarFim(getArq().getPathAdversario());
-
             if(perdeu) {
                 fim = true;
             }
             else if(alvosAtingidos == 17) {
                 getArq().escrever(getArq().getPath(), "fim");
                 fim = true;
+                getTurno().alterarTurno();
             }
             else {
-                System.out.print("Digite a posiÃ§Ã£o cujo deseja atingir "
-                +  ": de '[0-9] + [0-9]': ");
-              //AQUI COMEÇA A INTELIGÊNCIA DO PC 
-            if (acertouH) {
-                auxPosicao = auxPosicao;
-                posicao = Integer.toString(auxPosicao);
-                auxPosicao2 = auxPosicao2+1;
-                posicao += Integer.toString(auxPosicao2);
-                guardaPosicao.add(posicao);
-                System.out.println("la");
-                tenta = true;
-            } else if(acertouV) {
+                System.out.print("Digite a posição cujo deseja atingir " 
+                        + ": de '[0-9] + [0-9]': ");
+                //AQUI COMEÇA A INTELIGÊNCIA DO PC 
+                if (acertouH) {
+                    auxPosicao = auxPosicao;
+                    posicao = Integer.toString(auxPosicao);
+                    auxPosicao2 = auxPosicao2+1;
+                    posicao += Integer.toString(auxPosicao2);
+                    guardaPosicao.add(posicao);
+                    System.out.println("la");
+                    tenta = true;
+                } 
+                else if(acertouV) {
                 System.out.println("aqui");
                 auxPosicao = auxPosicao+1;
                 posicao = Integer.toString(auxPosicao);
                 auxPosicao2 = auxPosicao2-1;
                 posicao += Integer.toString(auxPosicao2);
                 guardaPosicao.add(posicao);
-            }
-            else {
+                }
+                else {
         /*auxPosicao = gerador.nextInt(10);
         posicao = Integer.toString(auxPosicao);
         auxPosicao2 = gerador.nextInt(10);
         posicao += Integer.toString(auxPosicao2);
                 guardaPosicao.add(posicao);*/
-            do {
-                auxPosicao = gerador.nextInt(10);
-                posicao = Integer.toString(auxPosicao);
-                auxPosicao2 = gerador.nextInt(10);
-                posicao += Integer.toString(auxPosicao2);
-                System.out.println("normal");
-                if (guardaPosicao.contains(posicao)){
-                        verifica = true;
-                        guardaPosicao.add(posicao);
-                }
+                    do {
+                        auxPosicao = gerador.nextInt(10);
+                        posicao = Integer.toString(auxPosicao);
+                        auxPosicao2 = gerador.nextInt(10);
+                        posicao += Integer.toString(auxPosicao2);
+                        System.out.println(posicao);
+                        if (guardaPosicao.contains(posicao)){
+                                verifica = true;
+                                guardaPosicao.add(posicao);
+                        }
 
-                else {
-                        verifica=false;
+                        else {
+                                verifica = false;
+                        }
+                    } while (verifica);
                 }
-            } while (verifica);
-        }
-        guardaPosicao.add(posicao);
-        //AQUI TERMINA A INTELIGÊNICA DO PC  
+            guardaPosicao.add(posicao);
+            //AQUI TERMINA A INTELIGÊNICA DO PC  
 
-        achou = getArq().buscar(getArq().getPathAdversario(), posicao);
-        
-        if(achou) {
-            alvosAtingidos++;
-                                acertouH = true;
-        }
-        else if(tenta) {
-            acertouH = false;
-            acertouV=true;
-            tenta = false;
-        }  
-        else {
-            acertouH = false;
-            acertouV = false;
-        }
-        buscarPos(tab, posicao, achou);
-        System.out.println();
-        tab.imprimirTabuleiro();
-        System.out.println();
-        arq.alterarTurno();
-        System.out.println("Aguarde sua vez de jogar.");
+            achou = getArq().buscar(getArq().getPathAdversario(), posicao);
+
+            if(achou) {
+                alvosAtingidos++;
+                acertouH = true;
+            }
+            else if(tenta) {
+                acertouH = false;
+                acertouV=true;
+                tenta = false;
+            }  
+            else {
+                acertouH = false;
+                acertouV = false;
+            }
+            buscarPos(tab, posicao, achou);
+            System.out.println();
+            tab.imprimirTabuleiro();
+            System.out.println();
+            getTurno().alterarTurno();
+            //System.out.println("Aguarde sua vez de jogar.");
         }
     }
     System.out.println();
     if(perdeu) {
-        System.out.println(this.getNome() + ", vocÃª foi derrotado!");
+        System.out.println(this.getNome() + ", você foi derrotado!");
     }
     else {
-        System.out.println("Fim de jogo, parabÃ©ns " + this.getNome() + 
-                ", vocÃª venceu!");
+        System.out.println("Fim de jogo, parabéns " + this.getNome() + 
+                ", você venceu!");
     }
 
     getArq().deletarArquivo();

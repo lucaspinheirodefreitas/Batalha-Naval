@@ -5,18 +5,17 @@ import java.util.Scanner;
 
 public class BatalhaNaval {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         int gamer;
         Tabuleiro campoBatalha = new Tabuleiro(13, 13);
         campoBatalha.inicializarTabuleiro();
         campoBatalha.imprimirTabuleiro();
 
-        Arquivo arq = new Arquivo();
-        arq.criarControladorTurno();
-        
+        Arquivo turno = new Arquivo();
+        turno.criarControladorTurno();
         gamer = definirJogador();
         
-        definirJogadas(gamer, campoBatalha);
+        definirJogadas(gamer, campoBatalha, turno);
     }
 
     public static int definirJogador() {
@@ -38,14 +37,22 @@ public class BatalhaNaval {
         return gamer;
     }
     
-    public static void definirJogadas(int gamer, Tabuleiro campoBatalha) throws IOException {
+    public static void definirJogadas(int gamer, Tabuleiro campoBatalha, Arquivo turno) throws IOException, InterruptedException {
         if(gamer == 3) {
-            JogadorComputador pc = new JogadorComputador(3);
+            turno.setPathAdversario("[1].txt");
+            JogadorComputador pc = new JogadorComputador(3, turno);
             pc.disporNavios();
             pc.jogadas(campoBatalha);
         } 
         else {
-            Jogador player = new Jogador(gamer);
+            Jogador player = new Jogador(gamer, turno);
+            if(gamer == 1) {
+                turno.escrever(turno.getPathControladorDeTurno(), "1");
+                turno.setPathAdversario("[" + player.getPlayerAdvs() + "]");
+            }
+            else {
+                turno.setPathAdversario("[1].txt");
+            }
             player.disporNavios();
             player.jogadas(campoBatalha);
         }

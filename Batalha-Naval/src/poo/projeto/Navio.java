@@ -1,8 +1,10 @@
 package poo.projeto;
 
 import static java.lang.Character.toLowerCase;
+import java.util.Scanner;
 
 public class Navio {
+    Scanner scan = new Scanner(System.in);
     private int tamanho;
     private char orientacao;
     
@@ -10,6 +12,11 @@ public class Navio {
     {
         this.tamanho = tamanho;
         this.orientacao = orientacao;
+    }
+    
+    public Navio(int tamanho)
+    {
+        this.tamanho = tamanho;
     }
     
     public String[] posicoes(String posicaoInicial) {
@@ -36,7 +43,21 @@ public class Navio {
         return posicao;
     }
     
-    public boolean verificaRepeticao(Arquivo arq, String[] posicoes) {
+    public char lerOrientacao() {
+        char orientacao;
+        
+        orientacao = scan.next().charAt(0);
+        
+        while (orientacao != 'h' && orientacao != 'H' && orientacao != 'v' && orientacao != 'V') {
+            System.out.println("Orientação inválida!");
+            System.out.print("Digite [h] para 'horizontal' ou "
+                    + "[v] para 'vertical': ");
+            orientacao = scan.next().charAt(0);
+        }
+        return orientacao;
+    }
+    
+    public boolean verificaRepeticao(Arquivo arq, String[] posicoes) throws InterruptedException {
         boolean buscaRepeticao;
         
         for(int i=0; i<posicoes.length; i++) {
