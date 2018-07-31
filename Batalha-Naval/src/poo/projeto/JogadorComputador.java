@@ -161,11 +161,9 @@ public class JogadorComputador extends Jogador {
                     auxPosicao2 = auxPosicao2+1;
                     posicao += Integer.toString(auxPosicao2);
                     guardaPosicao.add(posicao);
-                    System.out.println("la");
                     tenta = true;
                 } 
                 else if(acertouV) {
-                System.out.println("aqui");
                 auxPosicao = auxPosicao+1;
                 posicao = Integer.toString(auxPosicao);
                 auxPosicao2 = auxPosicao2-1;
