@@ -8,7 +8,6 @@ public class Tabuleiro {
     public Tabuleiro(int linhas, int colunas)
     {
         campo = new Celula[linhas][colunas];
-        this.numLin = 'A';
         this.numCol = '1';
     }    
     public void inicializarTabuleiro() {
